@@ -36,3 +36,8 @@ variable "tags" {
     "made-by" = "terraform"
   }
 }
+
+variable "bucket_name" {
+  type        = string
+  description = "Name of the Thanos bucket"
+}

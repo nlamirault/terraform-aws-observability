@@ -46,8 +46,8 @@ data "aws_iam_policy_document" "prometheus_permissions" {
     ]
 
     resources = [
-      aws_s3_bucket.prometheus.arn,
-      "${aws_s3_bucket.prometheus.arn}/*"
+      data.aws_s3_bucket.thanos.arn,
+      "${data.aws_s3_bucket.thanos.arn}/*"
     ]
   }
 }

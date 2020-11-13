@@ -19,6 +19,7 @@ module "prometheus" {
 
   namespace        = var.namespace
   service_accounts = var.service_accounts
+  bucket_name      = var.bucket_name
 
   tags = var.tags
 }
@@ -30,7 +31,9 @@ and variables :
 cluster_name = "foo-staging-eks"
 
 namespace        = "monitoring"
-service_accounts = "prometheus"]
+service_accounts = "prometheus"
+
+bucket_name = "foo-staging-eks-thanos"
 
 tags = {
     "project" = "foo"

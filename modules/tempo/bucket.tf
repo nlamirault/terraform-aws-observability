@@ -13,7 +13,7 @@
 # limitations under the License.
 
 resource "aws_s3_bucket" "tempo" {
-  bucket_prefix = local.service_name
+  bucket        = local.service_name
   acl           = "private"
   force_destroy = true
 
