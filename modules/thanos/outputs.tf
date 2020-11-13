@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+output "bucket" {
+  value = aws_s3_bucket.thanos.id
+}
+
 output "role_arn" {
   value = element(aws_iam_role.thanos.*.arn, 0)
 }
