@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "loki_log" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.velero.arn
+        kms_master_key_id = aws_kms_key.loki.arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -37,5 +37,19 @@ resource "aws_s3_bucket" "loki" {
 
   versioning {
     enabled = true
+  }
+
+  logging {
+    target_bucket = aws_s3_bucket.loki_log.id
+    target_prefix = "log/"
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.loki.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
   }
 }
