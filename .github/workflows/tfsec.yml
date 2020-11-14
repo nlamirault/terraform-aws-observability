@@ -23,7 +23,7 @@ on:
     branches: [ master ]
 
 jobs:
-  tfsec:
+  tfsec_loki:
     name: aws
     runs-on: ubuntu-latest
     steps:
@@ -31,5 +31,46 @@ jobs:
         uses: actions/checkout@v2
       - name: Terraform security scan master
         uses: triat/terraform-security-scan@master
+        with:
+          tfsec_actions_working_dir: 'modules/loki'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  tfsec_prometheus:
+    name: aws
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Terraform security scan master
+        uses: triat/terraform-security-scan@master
+        with:
+          tfsec_actions_working_dir: 'modules/prometheus'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  tfsec_thanos:
+    name: aws
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Terraform security scan master
+        uses: triat/terraform-security-scan@master
+        with:
+          tfsec_actions_working_dir: 'modules/thanos'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  tfsec_tempo:
+    name: aws
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Terraform security scan master
+        uses: triat/terraform-security-scan@master
+        with:
+          tfsec_actions_working_dir: 'modules/tempo'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
