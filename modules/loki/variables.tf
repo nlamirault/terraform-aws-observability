@@ -36,3 +36,12 @@ variable "tags" {
     "made-by" = "terraform"
   }
 }
+
+#############################################################################
+# KMS
+
+variable deletion_window_in_days {
+  type        = number
+  description = "Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days"
+  default     = 30
+}
