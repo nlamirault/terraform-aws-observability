@@ -12,6 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+resource "aws_s3_bucket" "loki_log" {
+  bucket        = format("%s-log", local.service_name)
+  acl           = "log-delivery-write"
+  force_destroy = true
+  tags          = var.tags
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.velero.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+}
+
 resource "aws_s3_bucket" "loki" {
   bucket        = local.service_name
   acl           = "private"
