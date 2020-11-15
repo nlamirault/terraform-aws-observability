@@ -13,5 +13,5 @@ See more details in each module's README.
 
 ## Terraform versions
 
-Use Terraform `>= 0.13.0` minimum and Terraform Provider Google `3.40+`.
+Use Terraform `>= 0.13.0` minimum and Terraform AWS provider `3.14+`.
 
