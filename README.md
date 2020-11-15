@@ -1,5 +1,7 @@
 # Observability components into Amazon AWS
 
+![Tfsec](https://github.com/nlamirault/terraform-aws-observability/workflows/Tfsec/badge.svg)
+
 This module consists of the following submodules:
 
 - [prometheus](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/prometheus)
