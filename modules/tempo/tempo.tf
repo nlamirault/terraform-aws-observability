@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "tempo_permissions" {
 resource "aws_iam_policy" "tempo_permissions" {
   name        = local.service_name
   path        = "/"
-  description = "Permissions for Thanos"
+  description = "Permissions for Tempo"
   policy      = data.aws_iam_policy_document.tempo_permissions.json
 }
 

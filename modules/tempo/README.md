@@ -1,6 +1,6 @@
-# Observability / Thanos
+# Observability / Tempo
 
-Terraform module which configure Thanos resources on Amazon AWS
+Terraform module which configure Tempo resources on Amazon AWS
 
 ## Terraform versions
 

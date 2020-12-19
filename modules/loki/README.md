@@ -1,6 +1,6 @@
-# Observability / Thanos
+# Observability / Loki
 
-Terraform module which configure Thanos resources on Amazon AWS
+Terraform module which configure Loki resources on Amazon AWS
 
 ## Terraform versions
 

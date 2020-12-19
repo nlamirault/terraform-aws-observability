@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "loki_permissions" {
 resource "aws_iam_policy" "loki_permissions" {
   name        = local.service_name
   path        = "/"
-  description = "Permissions for Thanos"
+  description = "Permissions for Loki"
   policy      = data.aws_iam_policy_document.loki_permissions.json
 }
 

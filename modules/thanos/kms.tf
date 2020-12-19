@@ -18,3 +18,8 @@ resource "aws_kms_key" "thanos" {
   enable_key_rotation     = true
   tags                    = var.tags
 }
+
+resource "aws_kms_alias" "thanos" {
+  name          = "alias/thanos"
+  target_key_id = aws_kms_key.thanos.key_id
+}
