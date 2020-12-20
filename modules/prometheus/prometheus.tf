@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "${replace(data.aws_secretsmanager_secret_version.oidc_url.secret_binary, "https://", "")}:sub"
-      values   = ["system:serviceaccount:%s:%s", var.namespace, var.service_account]
+      values   = [format("system:serviceaccount:%s:%s", var.namespace, var.service_account)]
     }
 
     principals {
@@ -48,6 +48,20 @@ data "aws_iam_policy_document" "prometheus_permissions" {
     resources = [
       data.aws_s3_bucket.thanos.arn,
       "${data.aws_s3_bucket.thanos.arn}/*"
+    ]
+  }
+
+  statement {
+    effect  = "Allow"
+
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:GenerateDataKey*",
+    ]
+
+    resources = [
+      data.aws_kms_key.thanos.arn
     ]
   }
 }

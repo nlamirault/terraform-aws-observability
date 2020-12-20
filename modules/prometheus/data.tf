@@ -33,3 +33,11 @@ data "aws_secretsmanager_secret" "oidc_arn" {
 data "aws_secretsmanager_secret_version" "oidc_arn" {
   secret_id = data.aws_secretsmanager_secret.oidc_arn.id
 }
+
+data "aws_s3_bucket" "thanos" {
+  bucket = var.bucket_name
+}
+
+data "aws_kms_key" "thanos" {
+  key_id = "alias/thanos"
+}

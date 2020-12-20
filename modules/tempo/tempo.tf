@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "${replace(data.aws_secretsmanager_secret_version.oidc_url.secret_binary, "https://", "")}:sub"
-      values   = ["system:serviceaccount:%s:%s", var.namespace, var.service_account]
+      values   = [format("system:serviceaccount:%s:%s", var.namespace, var.service_account)]
     }
 
     principals {
@@ -38,6 +38,8 @@ resource "aws_iam_role" "tempo" {
 
 data "aws_iam_policy_document" "tempo_permissions" {
   statement {
+    effect  = "Allow"
+
     actions = [
       "s3:ListBucket",
       "s3:GetObject",
@@ -50,6 +52,21 @@ data "aws_iam_policy_document" "tempo_permissions" {
       "${aws_s3_bucket.tempo.arn}/*"
     ]
   }
+
+  statement {
+    effect  = "Allow"
+
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:GenerateDataKey*",
+    ]
+
+    resources = [
+      aws_kms_key.tempo.arn
+    ]
+  }
+
 }
 
 resource "aws_iam_policy" "tempo_permissions" {

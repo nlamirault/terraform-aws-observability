@@ -15,3 +15,7 @@
 output "role_arn" {
   value = element(aws_iam_role.tempo.*.arn, 0)
 }
+
+output "kms_arn" {
+  value = aws_kms_key.tempo.arn
+}

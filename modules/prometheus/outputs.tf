@@ -15,3 +15,7 @@
 output "role_arn" {
   value = element(aws_iam_role.prometheus.*.arn, 0)
 }
+
+output "kms_arn" {
+  value = data.aws_kms_key.thanos.arn
+}
