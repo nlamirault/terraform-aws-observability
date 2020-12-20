@@ -50,6 +50,20 @@ data "aws_iam_policy_document" "prometheus_permissions" {
       "${data.aws_s3_bucket.thanos.arn}/*"
     ]
   }
+
+  statement {
+    effect  = "Allow"
+
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:GenerateDataKey*",
+    ]
+
+    resources = [
+      data.aws_kms_key.thanos.arn
+    ]
+  }
 }
 
 resource "aws_iam_policy" "prometheus_permissions" {

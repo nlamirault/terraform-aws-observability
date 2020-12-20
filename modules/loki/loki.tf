@@ -38,6 +38,8 @@ resource "aws_iam_role" "loki" {
 
 data "aws_iam_policy_document" "loki_permissions" {
   statement {
+    effect  = "Allow"
+
     actions = [
       "s3:ListBucket",
       "s3:GetObject",
@@ -50,6 +52,21 @@ data "aws_iam_policy_document" "loki_permissions" {
       "${aws_s3_bucket.loki.arn}/*"
     ]
   }
+
+  statement {
+    effect  = "Allow"
+
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:GenerateDataKey*",
+    ]
+
+    resources = [
+      aws_kms_key.loki.arn
+    ]
+  }
+
 }
 
 resource "aws_iam_policy" "loki_permissions" {
