@@ -18,3 +18,8 @@ resource "aws_kms_key" "tempo" {
   enable_key_rotation     = true
   tags                    = var.tags
 }
+
+resource "aws_kms_alias" "tempo" {
+  name          = "alias/tempo"
+  target_key_id = aws_kms_key.tempo.key_id
+}

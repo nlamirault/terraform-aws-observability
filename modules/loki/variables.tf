@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Thanos
+# Loki
 
 variable "cluster_name" {
   type        = string
@@ -40,7 +40,7 @@ variable "tags" {
 #############################################################################
 # KMS
 
-variable deletion_window_in_days {
+variable "deletion_window_in_days" {
   type        = number
   description = "Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days"
   default     = 30

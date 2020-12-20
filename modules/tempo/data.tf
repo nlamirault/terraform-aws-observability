@@ -19,7 +19,7 @@ data "aws_eks_cluster" "eks" {
 data "aws_caller_identity" "current" {}
 
 data "aws_secretsmanager_secret" "oidc_url" {
-  name = format("%s_oidc_url", replace(var.cluster_name, "-", "_"))
+  name = format("%s_k8s_oidc_url", replace(var.cluster_name, "-", "_"))
 }
 
 data "aws_secretsmanager_secret_version" "oidc_url" {
@@ -27,7 +27,7 @@ data "aws_secretsmanager_secret_version" "oidc_url" {
 }
 
 data "aws_secretsmanager_secret" "oidc_arn" {
-  name = format("%s_oidc_arn", replace(var.cluster_name, "-", "_"))
+  name = format("%s_k8s_oidc_arn", replace(var.cluster_name, "-", "_"))
 }
 
 data "aws_secretsmanager_secret_version" "oidc_arn" {

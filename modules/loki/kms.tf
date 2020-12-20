@@ -18,3 +18,8 @@ resource "aws_kms_key" "loki" {
   enable_key_rotation     = true
   tags                    = var.tags
 }
+
+resource "aws_kms_alias" "loki" {
+  name          = "alias/loki"
+  target_key_id = aws_kms_key.loki.key_id
+}
