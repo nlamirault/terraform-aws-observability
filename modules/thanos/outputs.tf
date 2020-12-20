@@ -19,3 +19,7 @@ output "bucket" {
 output "role_arn" {
   value = element(aws_iam_role.thanos.*.arn, 0)
 }
+
+output "kms_arn" {
+  value = aws_kms_key.thanos.arn
+}

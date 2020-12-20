@@ -38,6 +38,8 @@ resource "aws_iam_role" "thanos" {
 
 data "aws_iam_policy_document" "thanos_permissions" {
   statement {
+    effect  = "Allow"
+
     actions = [
       "s3:ListBucket",
       "s3:GetObject",
