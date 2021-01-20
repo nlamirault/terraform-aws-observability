@@ -25,8 +25,8 @@ variable "namespace" {
   description = "The Kubernetes namespace"
 }
 
-variable "service_accounts" {
-  type        = list(string)
+variable "service_account" {
+  type        = string
   description = "The Kubernetes service account"
 }
 
