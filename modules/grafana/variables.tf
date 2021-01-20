@@ -12,13 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-terraform {
-  required_version = ">= 0.13.0"
+#############################################################################
+# Grafana
 
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.14.0"
-    }
+variable "cluster_name" {
+  type        = string
+  description = "Name of the EKS cluster"
+}
+
+variable "namespace" {
+  type        = string
+  description = "The Kubernetes namespace"
+}
+
+variable "service_account" {
+  type        = string
+  description = "The Kubernetes service account"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags for grafana"
+  default = {
+    "made-by" = "terraform"
   }
 }

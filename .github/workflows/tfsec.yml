@@ -74,3 +74,16 @@ jobs:
           tfsec_actions_working_dir: 'modules/tempo'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  tfsec_grafana:
+    name: grafana
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Terraform security scan master
+        uses: triat/terraform-security-scan@master
+        with:
+          tfsec_actions_working_dir: 'modules/grafana'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
