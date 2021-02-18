@@ -40,7 +40,55 @@ tags = {
 }
 ```
 
-This module creates :
-
-
 ## Documentation
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.14.0 |
+| aws | >= 3.14.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | >= 3.14.0 |
+
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/iam_policy) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/iam_policy_document) |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/iam_role) |
+| [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/iam_role_policy_attachment) |
+| [aws_kms_alias](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/kms_alias) |
+| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/kms_key) |
+| [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/s3_bucket) |
+| [aws_secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/secretsmanager_secret) |
+| [aws_secretsmanager_secret_version](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/secretsmanager_secret_version) |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
+| deletion\_window\_in\_days | Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days | `number` | `30` | no |
+| namespace | The Kubernetes namespace | `string` | n/a | yes |
+| service\_accounts | The Kubernetes service account | `list(string)` | n/a | yes |
+| tags | Tags for Thanos | `map(string)` | <pre>{<br>  "made-by": "terraform"<br>}</pre> | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| bucket | S3 bucket for Thanos |
+| kms\_arn | Amazon Resource Name for Thanos KMS key |
+| role\_arn | Amazon Resource Name for Thanos |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -13,9 +13,11 @@
 # limitations under the License.
 
 output "role_arn" {
-  value = element(aws_iam_role.loki.*.arn, 0)
+  value       = element(aws_iam_role.loki.*.arn, 0)
+  description = "Amazon Resource Name for Loki"
 }
 
 output "kms_arn" {
-  value = aws_kms_key.loki.arn
+  value       = aws_kms_key.loki.arn
+  description = "Amazon Resource Name for Loki KMS key"
 }

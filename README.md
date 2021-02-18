@@ -10,8 +10,3 @@ This module consists of the following submodules:
 - [tempo](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/tempo)
 
 See more details in each module's README.
-
-## Terraform versions
-
-Use Terraform `>= 0.13.0` minimum and Terraform AWS provider `3.14+`.
-
