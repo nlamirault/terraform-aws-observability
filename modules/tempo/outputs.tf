@@ -13,9 +13,11 @@
 # limitations under the License.
 
 output "role_arn" {
-  value = element(aws_iam_role.tempo.*.arn, 0)
+  value       = element(aws_iam_role.tempo.*.arn, 0)
+  description = "Amazon Resource Name for Tempo"
 }
 
 output "kms_arn" {
-  value = aws_kms_key.tempo.arn
+  value       = aws_kms_key.tempo.arn
+  description = "Amazon Resource Name for Tempo KMS key"
 }

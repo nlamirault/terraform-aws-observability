@@ -38,7 +38,7 @@ resource "aws_iam_role" "thanos" {
 
 data "aws_iam_policy_document" "thanos_permissions" {
   statement {
-    effect  = "Allow"
+    effect = "Allow"
 
     actions = [
       "s3:ListBucket",
@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "thanos_permissions" {
   }
 
   statement {
-    effect  = "Allow"
+    effect = "Allow"
 
     actions = [
       "kms:Encrypt",

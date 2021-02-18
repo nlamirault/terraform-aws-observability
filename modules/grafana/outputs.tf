@@ -13,5 +13,6 @@
 # limitations under the License.
 
 output "role_arn" {
-  value = element(aws_iam_role.grafana.*.arn, 0)
+  value       = element(aws_iam_role.grafana.*.arn, 0)
+  description = "Amazon Resource Name for Grafana"
 }

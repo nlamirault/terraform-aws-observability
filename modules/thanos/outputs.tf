@@ -13,13 +13,16 @@
 # limitations under the License.
 
 output "bucket" {
-  value = aws_s3_bucket.thanos.id
+  value       = aws_s3_bucket.thanos.id
+  description = "S3 bucket for Thanos"
 }
 
 output "role_arn" {
-  value = element(aws_iam_role.thanos.*.arn, 0)
+  value       = element(aws_iam_role.thanos.*.arn, 0)
+  description = "Amazon Resource Name for Thanos"
 }
 
 output "kms_arn" {
-  value = aws_kms_key.thanos.arn
+  value       = aws_kms_key.thanos.arn
+  description = "Amazon Resource Name for Thanos KMS key"
 }

@@ -38,7 +38,7 @@ resource "aws_iam_role" "grafana" {
 
 data "aws_iam_policy_document" "grafana_permissions" {
   statement {
-    effect  = "Allow"
+    effect = "Allow"
 
     actions = [
       "cloudwatch:DescribeAlarmsForMetric",
@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "grafana_permissions" {
   }
 
   statement {
-    effect  = "Allow"
+    effect = "Allow"
 
     actions = [
       "logs:DescribeLogGroups",
@@ -72,7 +72,7 @@ data "aws_iam_policy_document" "grafana_permissions" {
   }
 
   statement {
-    effect  = "Allow"
+    effect = "Allow"
 
     actions = [
       "ec2:DescribeTags",
@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "grafana_permissions" {
   }
 
   statement {
-    effect  = "Allow"
+    effect = "Allow"
 
     actions = [
       "tag:GetResources"
