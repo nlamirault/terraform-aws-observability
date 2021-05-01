@@ -12,22 +12,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Project / Release Drafter
+# labels to be used with /area command
+area:
+  - 'gcp'
+  - 'aws'
+  - 'azure'
+  - 'kubernetes'
 
-on:
-  push:
-    # branches to consider in the event; optional, defaults to all
-    branches:
-      - master
+kind:
+  - 'documentation'
+  - 'discussion'
+  - 'feature'
+  - 'question'
 
-jobs:
-  update_release_draft:
-    runs-on: ubuntu-latest
-    steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
-        # with:
-          # config-name: my-config.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+priority:
+  - 'low'
+  - 'medium'
+  - 'high'
+  - 'critical'
+
+status:
+  - available
+  - blocked
+  - in_progress
+  - on_hold
+
+# File globs for PR labeler
+# tests:
+#   - '**/*.test.ts'
+
+'area/kubernetes':
+  - kubernetes/*
+  - kubernetes/**/*
+
+'area/gcp':
+  - iac/gcp/*
+  - iac/gcp/**/*
+
+'area/aws':
+  - iac/aws/*
+  - iac/aws/**/*
+
+'area/azure':
+  - iac/azure/*
+  - iac/azure/**/*
+
+'kind/documentation':
+  - docs/*
+  - docs/**/*
