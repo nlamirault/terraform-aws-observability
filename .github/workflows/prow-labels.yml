@@ -12,22 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Project / Release Drafter
+# name: "Label PRs from globs"
+# on:
+#   schedule:
+#   - cron: "0 * * * *"
 
+# jobs:
+#   execute:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: jpmcb/prow-github-actions@v1.1.1
+#         with:
+#           jobs: 'pr-labeler'
+#           github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+name: Prow / Pull Request Labeler
 on:
-  push:
-    # branches to consider in the event; optional, defaults to all
-    branches:
-      - master
+- pull_request_target
 
 jobs:
-  update_release_draft:
+  triage:
     runs-on: ubuntu-latest
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
-        # with:
-          # config-name: my-config.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/labeler@main
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
