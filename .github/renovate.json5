@@ -15,23 +15,23 @@
   "rebaseWhen": "conflicted",
   "assignees": ["@nlamirault"],
   "reviewersFromCodeOwners": true,
-  "labels": ["area/renovate"],
+  "labels": ["kind/renovate"],
   "packageRules": [
     // Labels for Terraform
     {
       "datasources": ["terraform", "terraform-version", "terraform-provider", "terraform-module"],
       "updateTypes": ["major"],
-      "labels": ["area/renovate", "dependency/terraform", "priority/high", "size/xs"]
+      "labels": ["kind/renovate", "area/terraform", "dependency/terraform", "priority/high", "size/xs"]
     },
     {
       "datasources": ["terraform", "terraform-version", "terraform-provider", "terraform-module"],
       "updateTypes": ["minor"],
-      "labels": ["area/renovate", "dependency/terraform", "priority/medium", "size/xs"]
+      "labels": ["kind/renovate", "area/terraform", "dependency/terraform", "priority/medium", "size/xs"]
     },
     {
       "datasources": ["terraform", "terraform-version", "terraform-provider", "terraform-module"],
       "updateTypes": ["patch"],
-      "labels": ["area/renovate", "dependency/terraform", "priority/low", "size/xs"]
+      "labels": ["kind/renovate", "area/terraform", "dependency/terraform", "priority/low", "size/xs"]
     },
   ]
 }
