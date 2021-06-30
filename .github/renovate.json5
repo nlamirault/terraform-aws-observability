@@ -15,23 +15,70 @@
   "rebaseWhen": "conflicted",
   "assignees": ["@nlamirault"],
   "reviewersFromCodeOwners": true,
-  "labels": ["kind/renovate"],
+  // "labels": ["kind/renovate"],
   "packageRules": [
     // Labels for Terraform
     {
       "datasources": ["terraform", "terraform-version", "terraform-provider", "terraform-module"],
       "updateTypes": ["major"],
-      "labels": ["kind/renovate", "area/terraform", "dependency/terraform", "priority/high", "size/xs"]
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/high", "size/xs"]
     },
     {
       "datasources": ["terraform", "terraform-version", "terraform-provider", "terraform-module"],
       "updateTypes": ["minor"],
-      "labels": ["kind/renovate", "area/terraform", "dependency/terraform", "priority/medium", "size/xs"]
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/medium", "size/xs"]
     },
     {
       "datasources": ["terraform", "terraform-version", "terraform-provider", "terraform-module"],
       "updateTypes": ["patch"],
-      "labels": ["kind/renovate", "area/terraform", "dependency/terraform", "priority/low", "size/xs"]
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/low", "size/xs"]
+    },
+    {
+      "matchPackageNames": ["hashicorp/terraform"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/high", "size/xs"]
+    },
+    {
+      "matchPackageNames": ["hashicorp/terraform"],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/medium", "size/xs"]
+    },
+    {
+      "matchPackageNames": ["hashicorp/terraform"],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/low", "size/xs"]
+    },
+    // Labels for Docker
+    {
+      "datasources": ["docker"],
+      "updateTypes": ["major"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "dependency/docker", "priority/high", "size/xs"]
+    },
+    {
+      "datasources": ["docker"],
+      "updateTypes": ["minor"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "dependency/docker", "priority/medium", "size/xs"]
+    },
+    {
+      "datasources": ["docker"],
+      "updateTypes": ["patch"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "dependency/docker", "priority/low", "size/xs"]
+    },
+    // Labels for Github Actions
+    {
+      "datasources": ["action"],
+      "updateTypes": ["major"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/github", "dependency/github", "priority/high", "size/xs"]
+    },
+    {
+      "datasources": ["action"],
+      "updateTypes": ["minor"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/github", "dependency/github", "priority/medium", "size/xs"]
+    },
+    {
+      "datasources": ["action"],
+      "updateTypes": ["patch"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/github", "dependency/github", "priority/low", "size/xs"]
     },
   ]
 }
