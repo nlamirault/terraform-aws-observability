@@ -31,6 +31,7 @@ categories:
   - title: '🚨 Maintenance'
     labels:
       - 'area/renovate'
+      - 'kind/renovate'
       - 'dependency/flux'
       - 'chore'
   - title: '📝 Documentation'
