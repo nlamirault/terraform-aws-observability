@@ -15,6 +15,8 @@
 locals {
   service_name = format("%s-prometheus", var.cluster_name)
 
+  role_name = "prometheus"
+
   tags = merge(
     var.tags,
     {
