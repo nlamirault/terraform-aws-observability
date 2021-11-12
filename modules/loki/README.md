@@ -78,6 +78,7 @@ tags = {
 |------|-------------|------|---------|:--------:|
 | cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
 | deletion\_window\_in\_days | Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days | `number` | `30` | no |
+| enable\_kms | Enable custom KMS key | `bool` | n/a | yes |
 | namespace | The Kubernetes namespace | `string` | n/a | yes |
 | service\_account | The Kubernetes service account | `string` | n/a | yes |
 | tags | Tags for Loki | `map(string)` | `{}` | no |
@@ -86,6 +87,5 @@ tags = {
 
 | Name | Description |
 |------|-------------|
-| kms\_arn | Amazon Resource Name for Loki KMS key |
 | role\_arn | Amazon Resource Name for Loki |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

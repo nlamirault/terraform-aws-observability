@@ -80,6 +80,7 @@ tags = {
 |------|-------------|------|---------|:--------:|
 | bucket\_name | Name of the Thanos bucket | `string` | n/a | yes |
 | cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
+| enable\_kms | Enable custom KMS key | `bool` | n/a | yes |
 | namespace | The Kubernetes namespace | `string` | n/a | yes |
 | service\_account | The Kubernetes service account | `string` | n/a | yes |
 | tags | Tags for Loki | `map(string)` | `{}` | no |
@@ -88,6 +89,5 @@ tags = {
 
 | Name | Description |
 |------|-------------|
-| kms\_arn | Amazon Resource Name for Thanos KMS key |
 | role\_arn | Amazon Resource Name for Prometheus |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -38,9 +38,7 @@ data "aws_iam_policy_document" "tempo_permissions" {
       "kms:GenerateDataKey*",
     ]
 
-    resources = [
-      aws_kms_key.tempo.arn
-    ]
+    resources = var.enable_kms ? [aws_kms_key.tempo[0].arn] : []
   }
 
 }
