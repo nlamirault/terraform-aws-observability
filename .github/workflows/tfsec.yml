@@ -30,6 +30,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Terraform security scan master
-        uses: triat/terraform-security-scan@master
+        uses: aquasecurity/tfsec-pr-commenter-action@v0.1.10 #triat/terraform-security-scan@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
