@@ -45,7 +45,10 @@ resource "aws_iam_policy" "prometheus" {
   path        = "/"
   description = "Permissions for Prometheus"
   policy      = data.aws_iam_policy_document.prometheus_permissions.json
-  tags        = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 }
 
 module "prometheus_role" {
@@ -58,5 +61,8 @@ module "prometheus_role" {
   provider_url                  = replace(var.provider_url, "https://", "")
   role_policy_arns              = [aws_iam_policy.prometheus.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
-  tags                          = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = var.prometheus_role_name },
+    local.tags
+  )
 }

@@ -48,7 +48,10 @@ resource "aws_iam_policy" "thanos_permissions" {
   path        = "/"
   description = "Permissions for Thanos"
   policy      = data.aws_iam_policy_document.thanos_permissions.json
-  tags        = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 }
 
 module "thanos_role" {
@@ -63,5 +66,8 @@ module "thanos_role" {
   provider_url                  = replace(var.provider_url, "https://", "")
   role_policy_arns              = [aws_iam_policy.thanos.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${each.value}"]
-  tags                          = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = var.thanos_role_name },
+    local.tags
+  )
 }

@@ -17,7 +17,10 @@ resource "aws_iam_policy" "grafana" {
   description = "Permissions for Grafana"
   path        = "/"
   policy      = file("grafana_policy.json")
-  tags        = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 }
 
 module "grafana_role" {
@@ -30,5 +33,8 @@ module "grafana_role" {
   provider_url                  = replace(var.provider_url, "https://", "")
   role_policy_arns              = [aws_iam_policy.grafana.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
-  tags                          = merge(var.tags, var.tags)
+  tags = merge(
+    { "Name" = var.grafana_role_name },
+    var.tags
+  )
 }
