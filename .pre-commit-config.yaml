@@ -23,11 +23,12 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
 - repo: git://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.50.0
+  rev: v1.56.0
   hooks:
     - id: terraform_fmt
     - id: terraform_docs
     - id: terraform_tflint
+      files: \.tf$
       args:
       - '--args=--enable-rule=terraform_deprecated_interpolation'
       - '--args=--enable-rule=terraform_deprecated_index'
@@ -42,3 +43,5 @@ repos:
       - '--args=--enable-rule=terraform_unused_required_providers'
       - '--args=--enable-rule=terraform_standard_module_structure'
     - id: terraform_tfsec
+      args:
+       - '--args=--config-file __GIT_WORKING_DIR__/.tfsec.yml'

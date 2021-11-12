@@ -13,7 +13,15 @@
 # limitations under the License.
 
 resource "aws_s3_bucket" "tempo_log" {
-  bucket        = format("%s-log", local.service_name)
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "2.11.1"
+
+  bucket                  = format("%s-log", local.service_name)
+  block_public_acls       = true
+  block_public_policy     = true
+  restrict_public_buckets = true
+  ignore_public_acls      = true
+
   acl           = "log-delivery-write"
   force_destroy = true
 
@@ -22,27 +30,31 @@ resource "aws_s3_bucket" "tempo_log" {
     local.tags
   )
 
-  versioning {
+  versioning = {
     enabled = true
   }
 
-  dynamic "server_side_encryption_configuration" {
-    for_each = var.enable_kms ? [1] : []
-    content {
-      server_side_encryption_configuration {
-        rule {
-          apply_server_side_encryption_by_default {
-            kms_master_key_id = aws_kms_key.tempo[0].arn
-            sse_algorithm     = "aws:kms"
-          }
-        }
+  server_side_encryption_configuration = var.enable_kms ? {} : {
+    rule = {
+      bucket_key_enabled = true
+      apply_server_side_encryption_by_default = {
+        kms_master_key_id = aws_kms_key.tempo[0].arn
+        sse_algorithm     = "aws:kms"
       }
     }
   }
 }
 
 resource "aws_s3_bucket" "tempo" {
-  bucket        = local.service_name
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "2.11.1"
+
+  bucket                  = local.service_name
+  block_public_acls       = true
+  block_public_policy     = true
+  restrict_public_buckets = true
+  ignore_public_acls      = true
+
   acl           = "private"
   force_destroy = true
 
@@ -51,25 +63,21 @@ resource "aws_s3_bucket" "tempo" {
     local.tags
   )
 
-  versioning {
-    enabled = true
-  }
-
-  logging {
-    target_bucket = aws_s3_bucket.tempo_log.id
+  logging = {
+    target_bucket = aws_s3_bucket.thanos_log.id
     target_prefix = "log/"
   }
 
-  dynamic "server_side_encryption_configuration" {
-    for_each = var.enable_kms ? [1] : []
-    content {
-      server_side_encryption_configuration {
-        rule {
-          apply_server_side_encryption_by_default {
-            kms_master_key_id = aws_kms_key.tempo[0].arn
-            sse_algorithm     = "aws:kms"
-          }
-        }
+  versioning = {
+    enabled = true
+  }
+
+  server_side_encryption_configuration = var.enable_kms ? {} : {
+    rule = {
+      bucket_key_enabled = true
+      apply_server_side_encryption_by_default = {
+        kms_master_key_id = aws_kms_key.thanos[0].arn
+        sse_algorithm     = "aws:kms"
       }
     }
   }
