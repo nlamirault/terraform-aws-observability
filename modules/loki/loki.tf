@@ -24,8 +24,8 @@ data "aws_iam_policy_document" "loki_permissions" {
     ]
 
     resources = [
-      aws_s3_bucket.loki.arn,
-      "${aws_s3_bucket.loki.arn}/*"
+      module.loki_log.s3_bucket_arn,
+      "${module.loki_log.s3_bucket_arn}/*"
     ]
   }
 
@@ -60,12 +60,12 @@ module "loki_role" {
 
   create_role                   = true
   role_description              = "Loki Role"
-  role_name                     = var.loki_role_name
-  provider_url                  = replace(var.provider_url, "https://", "")
+  role_name                     = local.role_name
+  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
   role_policy_arns              = [aws_iam_policy.loki.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
-    { "Name" = var.loki_role_name },
+    { "Name" = local.role_name },
     local.tags
   )
 }

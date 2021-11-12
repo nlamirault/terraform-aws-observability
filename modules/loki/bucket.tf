@@ -34,7 +34,7 @@ module "loki_log" {
     enabled = true
   }
 
-  server_side_encryption_configuration = var.enable_kms ? {} : {
+  server_side_encryption_configuration = var.enable_kms ? {
     rule = {
       bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
@@ -42,7 +42,7 @@ module "loki_log" {
         sse_algorithm     = "aws:kms"
       }
     }
-  }
+  } : {}
 }
 
 module "loki" {
@@ -72,13 +72,13 @@ module "loki" {
     enabled = true
   }
 
-  server_side_encryption_configuration = var.enable_kms ? {} : {
+  server_side_encryption_configuration = var.enable_kms ? {
     rule = {
       bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
-        kms_master_key_id = aws_kms_key.thanos[0].arn
+        kms_master_key_id = aws_kms_key.loki[0].arn
         sse_algorithm     = "aws:kms"
       }
     }
-  }
+  } : {}
 }
