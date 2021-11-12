@@ -23,5 +23,5 @@ resource "aws_kms_key" "loki" {
 resource "aws_kms_alias" "loki" {
   count         = var.enable_kms ? 1 : 0
   name          = "alias/loki"
-  target_key_id = aws_kms_key.loki.key_id
+  target_key_id = aws_kms_key.loki[0].key_id
 }

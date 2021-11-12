@@ -23,5 +23,5 @@ resource "aws_kms_key" "tempo" {
 resource "aws_kms_alias" "tempo" {
   count         = var.enable_kms ? 1 : 0
   name          = "alias/tempo"
-  target_key_id = aws_kms_key.tempo.key_id
+  target_key_id = aws_kms_key.tempo[0].key_id
 }

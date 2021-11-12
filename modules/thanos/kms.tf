@@ -23,5 +23,5 @@ resource "aws_kms_key" "thanos" {
 resource "aws_kms_alias" "thanos" {
   count         = var.enable_kms ? 1 : 0
   name          = "alias/thanos"
-  target_key_id = aws_kms_key.thanos.key_id
+  target_key_id = aws_kms_key.thanos[0].key_id
 }
