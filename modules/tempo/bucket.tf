@@ -17,7 +17,7 @@ resource "aws_s3_bucket" "tempo_log" {
   acl           = "log-delivery-write"
   force_destroy = true
 
-  tags = var.tags
+  tags = merge(local.tags, var.tags)
 
   versioning {
     enabled = true
@@ -38,7 +38,7 @@ resource "aws_s3_bucket" "tempo" {
   acl           = "private"
   force_destroy = true
 
-  tags = var.tags
+  tags = merge(local.tags, var.tags)
 
   versioning {
     enabled = true

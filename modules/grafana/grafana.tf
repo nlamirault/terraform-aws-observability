@@ -12,101 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(data.aws_secretsmanager_secret_version.oidc_url.secret_binary, "https://", "")}:sub"
-      values   = [format("system:serviceaccount:%s:%s", var.namespace, var.service_account)]
-    }
-
-    principals {
-      identifiers = [data.aws_secretsmanager_secret_version.oidc_arn.secret_binary]
-      type        = "Federated"
-    }
-  }
-}
-
-resource "aws_iam_role" "grafana" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-  name               = local.service_name
-  tags               = var.tags
-}
-
-data "aws_iam_policy_document" "grafana_permissions" {
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "cloudwatch:DescribeAlarmsForMetric",
-      "cloudwatch:DescribeAlarmHistory",
-      "cloudwatch:DescribeAlarms",
-      "cloudwatch:ListMetrics",
-      "cloudwatch:GetMetricStatistics",
-      "cloudwatch:GetMetricData"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "logs:DescribeLogGroups",
-      "logs:GetLogGroupFields",
-      "logs:StartQuery",
-      "logs:StopQuery",
-      "logs:GetQueryResults",
-      "logs:GetLogEvents"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "ec2:DescribeTags",
-      "ec2:DescribeInstances",
-      "ec2:DescribeRegions"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "tag:GetResources"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-}
-
-resource "aws_iam_policy" "grafana_permissions" {
+resource "aws_iam_policy" "grafana" {
   name        = local.service_name
+  description = "Permissions for Grafana"
   path        = "/"
-  description = "Permissions for grafana"
-  policy      = data.aws_iam_policy_document.grafana_permissions.json
+  policy      = file("grafana_policy.json")
+  tags        = merge(local.tags, var.tags)
 }
 
-resource "aws_iam_role_policy_attachment" "grafana" {
-  role       = aws_iam_role.grafana.name
-  policy_arn = aws_iam_policy.grafana_permissions.arn
+module "grafana_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version = "4.7.0"
+
+  create_role                   = true
+  role_description              = "Grafana Role"
+  role_name                     = var.grafana_role_name
+  provider_url                  = replace(var.provider_url, "https://", "")
+  role_policy_arns              = [aws_iam_policy.grafana.arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  tags                          = merge(var.tags, var.tags)
 }
