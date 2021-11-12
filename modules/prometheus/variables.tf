@@ -40,3 +40,11 @@ variable "bucket_name" {
   type        = string
   description = "Name of the Thanos bucket"
 }
+
+#############################################################################
+# KMS
+
+variable "enable_kms" {
+  type        = bool
+  description = "Enable custom KMS key"
+}

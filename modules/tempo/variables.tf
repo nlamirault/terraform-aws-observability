@@ -40,6 +40,12 @@ variable "tags" {
 #############################################################################
 # KMS
 
+variable "enable_kms" {
+  type        = bool
+  description = "Enable custom KMS key"
+}
+
+
 variable "deletion_window_in_days" {
   type        = number
   description = "Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days"

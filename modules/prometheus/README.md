@@ -80,6 +80,7 @@ tags = {
 |------|-------------|------|---------|:--------:|
 | bucket\_name | Name of the Thanos bucket | `string` | n/a | yes |
 | cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
+| enable\_kms | Enable custom KMS key | `bool` | n/a | yes |
 | namespace | The Kubernetes namespace | `string` | n/a | yes |
 | service\_account | The Kubernetes service account | `string` | n/a | yes |
 | tags | Tags for Loki | `map(string)` | `{}` | no |
