@@ -70,7 +70,7 @@ module "grafana_role" {
   version = "4.7.0"
 
   create_role                   = true
-  role_description              = "Grafana Role"
+  role_description              = "Role for Grafana"
   role_name                     = local.role_name
   provider_url                  = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.grafana.arn]

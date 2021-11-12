@@ -34,7 +34,6 @@ variable "tags" {
   type        = map(string)
   description = "Tags for Thanos"
   default = {
-    "made-by" = "terraform"
   }
 }
 

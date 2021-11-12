@@ -83,7 +83,7 @@ tags = {
 | enable\_kms | Enable custom KMS key | `bool` | n/a | yes |
 | namespace | The Kubernetes namespace | `string` | n/a | yes |
 | service\_accounts | The Kubernetes service account | `list(string)` | n/a | yes |
-| tags | Tags for Thanos | `map(string)` | <pre>{<br>  "made-by": "terraform"<br>}</pre> | no |
+| tags | Tags for Thanos | `map(string)` | `{}` | no |
 
 ## Outputs
 
