@@ -61,7 +61,7 @@ module "tempo_role" {
   create_role                   = true
   role_description              = "tempo Role"
   role_name                     = local.role_name
-  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
+  provider_url                  = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.tempo.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(

@@ -58,12 +58,12 @@ module "thanos_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "4.7.0"
 
-  for_each = var.service_accounts
+  for_each = toset(var.service_accounts)
 
   create_role                   = true
   role_description              = "thanos Role"
   role_name                     = local.role_name
-  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
+  provider_url                  = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.thanos.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${each.value}"]
   tags = merge(

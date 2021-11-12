@@ -62,6 +62,7 @@ tags = {
 |------|
 | [aws_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/eks_cluster) |
 | [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/iam_policy) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/iam_policy_document) |
 
 ## Inputs
 
