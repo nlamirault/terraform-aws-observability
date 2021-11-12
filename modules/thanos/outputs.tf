@@ -23,6 +23,6 @@ output "bucket_log" {
 }
 
 output "role_arn" {
-  value       = module.thanos_role.iam_role_arn
   description = "Amazon Resource Name for Thanos"
+  value       = { for sa in toset(var.service_accounts) : sa => module.thanos_role[sa].iam_role_arn }
 }
