@@ -17,5 +17,6 @@ data "aws_s3_bucket" "thanos" {
 }
 
 data "aws_kms_key" "thanos" {
+  count  = var.enable_kms ? 1 : 0
   key_id = "alias/thanos"
 }
