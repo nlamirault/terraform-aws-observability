@@ -16,7 +16,7 @@ resource "aws_kms_key" "tempo" {
   description             = "KMS for Tempo"
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = true
-  tags                    = var.tags
+  tags                    = merge(local.tags, var.tags)
 }
 
 resource "aws_kms_alias" "tempo" {

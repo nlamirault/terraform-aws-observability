@@ -12,30 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(data.aws_secretsmanager_secret_version.oidc_url.secret_binary, "https://", "")}:sub"
-      values   = [format("system:serviceaccount:%s:%s", var.namespace, var.service_account)]
-    }
-
-    principals {
-      identifiers = [data.aws_secretsmanager_secret_version.oidc_arn.secret_binary]
-      type        = "Federated"
-    }
-  }
-}
-
-resource "aws_iam_role" "tempo" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-  name               = local.service_name
-  tags               = var.tags
-}
-
 data "aws_iam_policy_document" "tempo_permissions" {
   statement {
     effect = "Allow"
@@ -74,9 +50,18 @@ resource "aws_iam_policy" "tempo_permissions" {
   path        = "/"
   description = "Permissions for Tempo"
   policy      = data.aws_iam_policy_document.tempo_permissions.json
+  tags        = merge(local.tags, var.tags)
 }
 
-resource "aws_iam_role_policy_attachment" "tempo" {
-  role       = aws_iam_role.tempo.name
-  policy_arn = aws_iam_policy.tempo_permissions.arn
+module "tempo_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version = "4.7.0"
+
+  create_role                   = true
+  role_description              = "tempo Role"
+  role_name                     = var.tempo_role_name
+  provider_url                  = replace(var.provider_url, "https://", "")
+  role_policy_arns              = [aws_iam_policy.tempo.arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  tags                          = merge(local.tags, var.tags)
 }

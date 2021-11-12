@@ -14,4 +14,10 @@
 
 locals {
   service_name = format("%s-tempo", var.cluster_name)
+
+  tags = {
+    "Made-By" = "terraform"
+    "Service" = "thanos"
+    "Iam"     = "eks-thanos"
+  }
 }

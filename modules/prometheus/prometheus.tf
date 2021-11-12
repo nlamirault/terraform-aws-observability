@@ -12,30 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(data.aws_secretsmanager_secret_version.oidc_url.secret_binary, "https://", "")}:sub"
-      values   = [format("system:serviceaccount:%s:%s", var.namespace, var.service_account)]
-    }
-
-    principals {
-      identifiers = [data.aws_secretsmanager_secret_version.oidc_arn.secret_binary]
-      type        = "Federated"
-    }
-  }
-}
-
-resource "aws_iam_role" "prometheus" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-  name               = local.service_name
-  tags               = var.tags
-}
-
 data "aws_iam_policy_document" "prometheus_permissions" {
   statement {
     actions = [
@@ -66,14 +42,23 @@ data "aws_iam_policy_document" "prometheus_permissions" {
   }
 }
 
-resource "aws_iam_policy" "prometheus_permissions" {
+resource "aws_iam_policy" "prometheus" {
   name        = local.service_name
   path        = "/"
   description = "Permissions for Prometheus"
   policy      = data.aws_iam_policy_document.prometheus_permissions.json
+  tags        = merge(local.tags, var.tags)
 }
 
-resource "aws_iam_role_policy_attachment" "prometheus" {
-  role       = aws_iam_role.prometheus.name
-  policy_arn = aws_iam_policy.prometheus_permissions.arn
+module "prometheus_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version = "4.7.0"
+
+  create_role                   = true
+  role_description              = "prometheus Role"
+  role_name                     = var.prometheus_role_name
+  provider_url                  = replace(var.provider_url, "https://", "")
+  role_policy_arns              = [aws_iam_policy.prometheus.arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  tags                          = merge(local.tags, var.tags)
 }

@@ -14,4 +14,10 @@
 
 locals {
   service_name = format("%s-prometheus", var.cluster_name)
+
+  tags = {
+    "Made-By" = "terraform"
+    "Service" = "prometheus"
+    "Iam"     = "eks-prometheus"
+  }
 }

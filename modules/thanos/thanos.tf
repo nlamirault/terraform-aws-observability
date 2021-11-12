@@ -12,30 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(data.aws_secretsmanager_secret_version.oidc_url.secret_binary, "https://", "")}:sub"
-      values   = formatlist("system:serviceaccount:%s:%s", var.namespace, var.service_accounts)
-    }
-
-    principals {
-      identifiers = [data.aws_secretsmanager_secret_version.oidc_arn.secret_binary]
-      type        = "Federated"
-    }
-  }
-}
-
-resource "aws_iam_role" "thanos" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-  name               = local.service_name
-  tags               = var.tags
-}
-
 data "aws_iam_policy_document" "thanos_permissions" {
   statement {
     effect = "Allow"
@@ -74,9 +50,20 @@ resource "aws_iam_policy" "thanos_permissions" {
   path        = "/"
   description = "Permissions for Thanos"
   policy      = data.aws_iam_policy_document.thanos_permissions.json
+  tags        = merge(local.tags, var.tags)
 }
 
-resource "aws_iam_role_policy_attachment" "thanos" {
-  role       = aws_iam_role.thanos.name
-  policy_arn = aws_iam_policy.thanos_permissions.arn
+module "thanos_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version = "4.7.0"
+
+  for_each = var.service_accounts
+
+  create_role                   = true
+  role_description              = "thanos Role"
+  role_name                     = var.thanos_role_name
+  provider_url                  = replace(var.provider_url, "https://", "")
+  role_policy_arns              = [aws_iam_policy.thanos.arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${each.value}"]
+  tags                          = merge(local.tags, var.tags)
 }

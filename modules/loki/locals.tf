@@ -14,4 +14,10 @@
 
 locals {
   service_name = format("%s-loki", var.cluster_name)
+
+  tags = {
+    "Made-By" = "terraform"
+    "Service" = "grafana"
+    "Iam"     = "eks-grafana"
+  }
 }

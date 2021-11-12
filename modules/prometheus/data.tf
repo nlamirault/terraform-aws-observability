@@ -12,22 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-data "aws_secretsmanager_secret" "oidc_url" {
-  name = format("%s_k8s_oidc_url", replace(var.cluster_name, "-", "_"))
-}
-
-data "aws_secretsmanager_secret_version" "oidc_url" {
-  secret_id = data.aws_secretsmanager_secret.oidc_url.id
-}
-
-data "aws_secretsmanager_secret" "oidc_arn" {
-  name = format("%s_k8s_oidc_arn", replace(var.cluster_name, "-", "_"))
-}
-
-data "aws_secretsmanager_secret_version" "oidc_arn" {
-  secret_id = data.aws_secretsmanager_secret.oidc_arn.id
-}
-
 data "aws_s3_bucket" "thanos" {
   bucket = var.bucket_name
 }
