@@ -23,11 +23,16 @@ resource "aws_s3_bucket" "thanos_log" {
     enabled = true
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.thanos.arn
-        sse_algorithm     = "aws:kms"
+  dynamic "server_side_encryption_configuration" {
+    for_each = var.enable_kms ? [1] : []
+    content {
+      server_side_encryption_configuration {
+        rule {
+          apply_server_side_encryption_by_default {
+            kms_master_key_id = aws_kms_key.thanos.arn
+            sse_algorithm     = "aws:kms"
+          }
+        }
       }
     }
   }
@@ -49,11 +54,16 @@ resource "aws_s3_bucket" "thanos" {
     target_prefix = "log/"
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.thanos.arn
-        sse_algorithm     = "aws:kms"
+  dynamic "server_side_encryption_configuration" {
+    for_each = var.enable_kms ? [1] : []
+    content {
+      server_side_encryption_configuration {
+        rule {
+          apply_server_side_encryption_by_default {
+            kms_master_key_id = aws_kms_key.thanos.arn
+            sse_algorithm     = "aws:kms"
+          }
+        }
       }
     }
   }

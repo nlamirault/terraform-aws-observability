@@ -78,6 +78,7 @@ tags = {
 |------|-------------|------|---------|:--------:|
 | cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
 | deletion\_window\_in\_days | Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days | `number` | `30` | no |
+| enable\_kms | Enable custom KMS key | `bool` | n/a | yes |
 | namespace | The Kubernetes namespace | `string` | n/a | yes |
 | service\_accounts | The Kubernetes service account | `list(string)` | n/a | yes |
 | tags | Tags for Thanos | `map(string)` | <pre>{<br>  "made-by": "terraform"<br>}</pre> | no |
@@ -87,6 +88,5 @@ tags = {
 | Name | Description |
 |------|-------------|
 | bucket | S3 bucket for Thanos |
-| kms\_arn | Amazon Resource Name for Thanos KMS key |
 | role\_arn | Amazon Resource Name for Thanos |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

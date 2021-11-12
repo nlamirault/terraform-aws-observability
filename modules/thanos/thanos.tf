@@ -38,9 +38,7 @@ data "aws_iam_policy_document" "thanos_permissions" {
       "kms:GenerateDataKey*",
     ]
 
-    resources = [
-      aws_kms_key.thanos.arn
-    ]
+    resources = var.enable_kms ? [aws_kms_key.thanos[0].arn] : []
   }
 
 }
