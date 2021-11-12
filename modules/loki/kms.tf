@@ -13,6 +13,7 @@
 # limitations under the License.
 
 resource "aws_kms_key" "loki" {
+  count                   = var.enable_kms ? 1 : 0
   description             = "KMS for Loki"
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = true
@@ -20,6 +21,7 @@ resource "aws_kms_key" "loki" {
 }
 
 resource "aws_kms_alias" "loki" {
+  count         = var.enable_kms ? 1 : 0
   name          = "alias/loki"
   target_key_id = aws_kms_key.loki.key_id
 }

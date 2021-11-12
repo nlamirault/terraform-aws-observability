@@ -38,9 +38,7 @@ data "aws_iam_policy_document" "loki_permissions" {
       "kms:GenerateDataKey*",
     ]
 
-    resources = [
-      aws_kms_key.loki.arn
-    ]
+    resources = var.enable_kms ? [aws_kms_key.loki[0].arn] : []
   }
 
 }
