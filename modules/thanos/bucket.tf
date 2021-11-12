@@ -34,7 +34,7 @@ module "thanos_log" {
     enabled = true
   }
 
-  server_side_encryption_configuration = var.enable_kms ? {} : {
+  server_side_encryption_configuration = var.enable_kms ? {
     rule = {
       bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
@@ -42,7 +42,7 @@ module "thanos_log" {
         sse_algorithm     = "aws:kms"
       }
     }
-  }
+  } : {}
 }
 
 module "thanos" {
@@ -72,7 +72,7 @@ module "thanos" {
     enabled = true
   }
 
-  server_side_encryption_configuration = var.enable_kms ? {} : {
+  server_side_encryption_configuration = var.enable_kms ? {
     rule = {
       bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
@@ -80,5 +80,5 @@ module "thanos" {
         sse_algorithm     = "aws:kms"
       }
     }
-  }
+  } : {}
 }

@@ -89,5 +89,7 @@ tags = {
 
 | Name | Description |
 |------|-------------|
+| bucket | S3 bucket for Loki |
+| bucket\_log | S3 log bucket for Loki |
 | role\_arn | Amazon Resource Name for Loki |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

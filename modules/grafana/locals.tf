@@ -15,6 +15,8 @@
 locals {
   service_name = format("%s-grafana", var.cluster_name)
 
+  role_name = "grafana"
+
   tags = merge(
     var.tags,
     {

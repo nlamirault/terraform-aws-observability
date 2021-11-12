@@ -29,12 +29,12 @@ module "grafana_role" {
 
   create_role                   = true
   role_description              = "Grafana Role"
-  role_name                     = var.grafana_role_name
-  provider_url                  = replace(var.provider_url, "https://", "")
+  role_name                     = local.role_name
+  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
   role_policy_arns              = [aws_iam_policy.grafana.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
-    { "Name" = var.grafana_role_name },
+    { "Name" = local.role_name },
     local.tags
   )
 }

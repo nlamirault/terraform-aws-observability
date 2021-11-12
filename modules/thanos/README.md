@@ -68,6 +68,7 @@ tags = {
 
 | Name |
 |------|
+| [aws_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/eks_cluster) |
 | [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/iam_policy) |
 | [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/iam_policy_document) |
 | [aws_kms_alias](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/kms_alias) |
@@ -89,5 +90,6 @@ tags = {
 | Name | Description |
 |------|-------------|
 | bucket | S3 bucket for Thanos |
+| bucket\_log | S3 log bucket for Thanos |
 | role\_arn | Amazon Resource Name for Thanos |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

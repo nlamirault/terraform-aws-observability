@@ -15,6 +15,8 @@
 locals {
   service_name = format("%s-tempo", var.cluster_name)
 
+  role_name = "tempo"
+
   tags = merge(
     var.tags,
     {

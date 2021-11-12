@@ -12,7 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+output "bucket" {
+  value       = module.tempo.s3_bucket_id
+  description = "S3 bucket for Tempo"
+}
+
+output "bucket_log" {
+  value       = module.tempo_log.s3_bucket_id
+  description = "S3 log bucket for Tempo"
+}
+
 output "role_arn" {
-  value       = element(aws_iam_role.tempo.*.arn, 0)
+  value       = module.tempo_role.iam_role_arn
   description = "Amazon Resource Name for Tempo"
 }

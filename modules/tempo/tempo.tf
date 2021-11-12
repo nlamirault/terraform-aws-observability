@@ -24,8 +24,8 @@ data "aws_iam_policy_document" "tempo_permissions" {
     ]
 
     resources = [
-      aws_s3_bucket.tempo.arn,
-      "${aws_s3_bucket.tempo.arn}/*"
+      module.tempo_log.s3_bucket_arn,
+      "${module.tempo_log.s3_bucket_arn}/*"
     ]
   }
 
@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "tempo_permissions" {
 
 }
 
-resource "aws_iam_policy" "tempo_permissions" {
+resource "aws_iam_policy" "tempo" {
   name        = local.service_name
   path        = "/"
   description = "Permissions for Tempo"
@@ -60,12 +60,12 @@ module "tempo_role" {
 
   create_role                   = true
   role_description              = "tempo Role"
-  role_name                     = var.tempo_role_name
-  provider_url                  = replace(var.provider_url, "https://", "")
+  role_name                     = local.role_name
+  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
   role_policy_arns              = [aws_iam_policy.tempo.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
-    { "Name" = var.tempo_role_name },
+    { "Name" = local.role_name },
     local.tags
   )
 }

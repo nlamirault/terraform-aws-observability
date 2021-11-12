@@ -24,8 +24,8 @@ data "aws_iam_policy_document" "thanos_permissions" {
     ]
 
     resources = [
-      aws_s3_bucket.thanos.arn,
-      "${aws_s3_bucket.thanos.arn}/*"
+      module.thanos_log.s3_bucket_arn,
+      "${module.thanos_log.s3_bucket_arn}/*"
     ]
   }
 
@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "thanos_permissions" {
 
 }
 
-resource "aws_iam_policy" "thanos_permissions" {
+resource "aws_iam_policy" "thanos" {
   name        = local.service_name
   path        = "/"
   description = "Permissions for Thanos"
@@ -62,12 +62,12 @@ module "thanos_role" {
 
   create_role                   = true
   role_description              = "thanos Role"
-  role_name                     = var.thanos_role_name
-  provider_url                  = replace(var.provider_url, "https://", "")
+  role_name                     = local.role_name
+  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
   role_policy_arns              = [aws_iam_policy.thanos.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${each.value}"]
   tags = merge(
-    { "Name" = var.thanos_role_name },
+    { "Name" = local.role_name },
     local.tags
   )
 }
