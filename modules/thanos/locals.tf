@@ -15,9 +15,12 @@
 locals {
   service_name = format("%s-thanos", var.cluster_name)
 
-  tags = {
-    "Made-By" = "terraform"
-    "Service" = "thanos"
-    "Iam"     = "eks-thanos"
-  }
+  tags = merge(
+    var.tags,
+    {
+      "Made-By" = "terraform"
+      "Service" = "thanos"
+      "Iam"     = "eks-thanos"
+    }
+  )
 }

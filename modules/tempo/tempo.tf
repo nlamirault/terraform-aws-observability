@@ -48,7 +48,10 @@ resource "aws_iam_policy" "tempo_permissions" {
   path        = "/"
   description = "Permissions for Tempo"
   policy      = data.aws_iam_policy_document.tempo_permissions.json
-  tags        = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 }
 
 module "tempo_role" {
@@ -61,5 +64,8 @@ module "tempo_role" {
   provider_url                  = replace(var.provider_url, "https://", "")
   role_policy_arns              = [aws_iam_policy.tempo.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
-  tags                          = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = var.tempo_role_name },
+    local.tags
+  )
 }

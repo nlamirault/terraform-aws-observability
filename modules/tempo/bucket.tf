@@ -17,7 +17,10 @@ resource "aws_s3_bucket" "tempo_log" {
   acl           = "log-delivery-write"
   force_destroy = true
 
-  tags = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = format("%s-log", local.service_name) },
+    local.tags
+  )
 
   versioning {
     enabled = true
@@ -43,7 +46,10 @@ resource "aws_s3_bucket" "tempo" {
   acl           = "private"
   force_destroy = true
 
-  tags = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 
   versioning {
     enabled = true

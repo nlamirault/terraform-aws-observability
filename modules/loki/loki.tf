@@ -48,7 +48,10 @@ resource "aws_iam_policy" "loki" {
   path        = "/"
   description = "Permissions for Loki"
   policy      = data.aws_iam_policy_document.loki_permissions.json
-  tags        = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 }
 
 module "loki_role" {
@@ -61,5 +64,8 @@ module "loki_role" {
   provider_url                  = replace(var.provider_url, "https://", "")
   role_policy_arns              = [aws_iam_policy.loki.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
-  tags                          = merge(local.tags, var.tags)
+  tags = merge(
+    { "Name" = var.loki_role_name },
+    local.tags
+  )
 }
