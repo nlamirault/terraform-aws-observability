@@ -88,6 +88,5 @@ tags = {
 
 | Name | Description |
 |------|-------------|
-| kms\_arn | Amazon Resource Name for Thanos KMS key |
 | role\_arn | Amazon Resource Name for Prometheus |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

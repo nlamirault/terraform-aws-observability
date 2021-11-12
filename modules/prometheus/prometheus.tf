@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "prometheus_permissions" {
       "kms:GenerateDataKey*",
     ]
 
-    resources = var.enable_kms ? [aws_kms_key.thanos[0].arn] : []
+    resources = var.enable_kms ? [data.aws_kms_key.thanos[0].arn] : []
   }
 }
 

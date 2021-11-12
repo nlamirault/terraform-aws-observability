@@ -16,8 +16,3 @@ output "role_arn" {
   value       = element(aws_iam_role.prometheus.*.arn, 0)
   description = "Amazon Resource Name for Prometheus"
 }
-
-output "kms_arn" {
-  value       = data.aws_kms_key.thanos.arn
-  description = "Amazon Resource Name for Thanos KMS key"
-}

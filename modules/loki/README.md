@@ -87,6 +87,5 @@ tags = {
 
 | Name | Description |
 |------|-------------|
-| kms\_arn | Amazon Resource Name for Loki KMS key |
 | role\_arn | Amazon Resource Name for Loki |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
