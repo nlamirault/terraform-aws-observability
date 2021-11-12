@@ -15,6 +15,8 @@
 locals {
   service_name = format("%s-thanos", var.cluster_name)
 
+  role_name = "thanos"
+
   tags = merge(
     var.tags,
     {

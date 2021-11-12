@@ -57,12 +57,12 @@ module "prometheus_role" {
 
   create_role                   = true
   role_description              = "prometheus Role"
-  role_name                     = var.prometheus_role_name
-  provider_url                  = replace(var.provider_url, "https://", "")
+  role_name                     = local.role_name
+  provider_url                  = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.prometheus.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
-    { "Name" = var.prometheus_role_name },
+    { "Name" = local.role_name },
     local.tags
   )
 }

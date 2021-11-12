@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-resource "aws_s3_bucket" "thanos_log" {
+module "thanos_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.11.1"
 
@@ -34,7 +34,7 @@ resource "aws_s3_bucket" "thanos_log" {
     enabled = true
   }
 
-  server_side_encryption_configuration = var.enable_kms ? {} : {
+  server_side_encryption_configuration = var.enable_kms ? {
     rule = {
       bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
@@ -42,10 +42,10 @@ resource "aws_s3_bucket" "thanos_log" {
         sse_algorithm     = "aws:kms"
       }
     }
-  }
+  } : {}
 }
 
-resource "aws_s3_bucket" "thanos" {
+module "thanos" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.11.1"
 
@@ -64,7 +64,7 @@ resource "aws_s3_bucket" "thanos" {
   )
 
   logging = {
-    target_bucket = aws_s3_bucket.thanos_log.id
+    target_bucket = module.thanos_log.s3_bucket_id
     target_prefix = "log/"
   }
 
@@ -72,7 +72,7 @@ resource "aws_s3_bucket" "thanos" {
     enabled = true
   }
 
-  server_side_encryption_configuration = var.enable_kms ? {} : {
+  server_side_encryption_configuration = var.enable_kms ? {
     rule = {
       bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
@@ -80,5 +80,5 @@ resource "aws_s3_bucket" "thanos" {
         sse_algorithm     = "aws:kms"
       }
     }
-  }
+  } : {}
 }

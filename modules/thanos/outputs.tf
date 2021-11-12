@@ -13,11 +13,16 @@
 # limitations under the License.
 
 output "bucket" {
-  value       = aws_s3_bucket.thanos.id
+  value       = module.thanos.s3_bucket_id
   description = "S3 bucket for Thanos"
 }
 
+output "bucket_log" {
+  value       = module.thanos_log.s3_bucket_id
+  description = "S3 log bucket for Thanos"
+}
+
 output "role_arn" {
-  value       = element(aws_iam_role.thanos.*.arn, 0)
+  value       = module.thanos_role.iam_role_arn
   description = "Amazon Resource Name for Thanos"
 }
