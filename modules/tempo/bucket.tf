@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-resource "aws_s3_bucket" "tempo_log" {
+module "tempo_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.11.1"
 
@@ -45,7 +45,7 @@ resource "aws_s3_bucket" "tempo_log" {
   }
 }
 
-resource "aws_s3_bucket" "tempo" {
+module "tempo" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.11.1"
 
@@ -64,7 +64,7 @@ resource "aws_s3_bucket" "tempo" {
   )
 
   logging = {
-    target_bucket = aws_s3_bucket.thanos_log.id
+    target_bucket = module.tempo_log.s3_bucket_id
     target_prefix = "log/"
   }
 
