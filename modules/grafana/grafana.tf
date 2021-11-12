@@ -35,6 +35,6 @@ module "grafana_role" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
     { "Name" = var.grafana_role_name },
-    var.tags
+    local.tags
   )
 }
