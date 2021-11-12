@@ -32,4 +32,4 @@ jobs:
       - name: Terraform security scan master
         uses: aquasecurity/tfsec-pr-commenter-action@v0.1.10 #triat/terraform-security-scan@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
