@@ -36,7 +36,7 @@ variable "service_account" {
 
 variable "tags" {
   type        = map(string)
-  description = "Tags for all resources"
+  description = "Tags for resources"
   default = {
   }
 }

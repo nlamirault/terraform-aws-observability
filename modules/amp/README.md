@@ -40,9 +40,12 @@ Terraform module which configure an AWS managed service for Prometheus instance.
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
 | <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags for all resources | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_amp_endpoint"></a> [amp\_endpoint](#output\_amp\_endpoint) | Prometheus endpoint available for this workspace |
+| <a name="output_amp_id"></a> [amp\_id](#output\_amp\_id) | Identifier of the workspace |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
