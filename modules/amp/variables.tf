@@ -14,6 +14,11 @@
 
 # AWS Managed Prometheus
 
+variable "alias" {
+  description = "Workspace name"
+  type        = string
+}
+
 variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster"

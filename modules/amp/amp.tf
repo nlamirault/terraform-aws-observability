@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+resource "aws_prometheus_workspace" "amp" {
+  alias = var.alias
+}
+
 #tfsec:ignore:AWS099
 data "aws_iam_policy_document" "amp" {
   statement {
