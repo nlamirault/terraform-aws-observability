@@ -1,6 +1,6 @@
-# Observability / AWS Managed Prometheus
+# Observability / AWS Managed Service for Prometheus
 
-Terraform module which configure an AWS-managed Prometheus instance.
+Terraform module which configure an AWS managed service for Prometheus instance.
 
 ## Documentation
 
