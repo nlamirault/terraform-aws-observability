@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#tfsec:ignore:AWS099
 data "aws_iam_policy_document" "grafana_permissions" {
 
   statement {

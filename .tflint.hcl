@@ -44,17 +44,17 @@ rule "terraform_standard_module_structure" { enabled = true }
 
 plugin "aws" {
     enabled = true
-    version = "0.5.0"
+    version = "0.10.1"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 
 ###############################################################################
 # PORTEFAIX
 
-plugin "portefaix" {
-  enabled = true
-}
+# plugin "portefaix" {
+#   enabled = true
+# }
 
-rule "terraform_portefaix_standard_structure" { enabled = false }
-rule "terraform_portefaix_standard_files" { enabled = false }
-rule "terraform_portefaix_tfenv" { enabled = true }
+# rule "terraform_portefaix_standard_structure" { enabled = false }
+# rule "terraform_portefaix_standard_files" { enabled = false }
+# rule "terraform_portefaix_tfenv" { enabled = true }

@@ -87,7 +87,7 @@ module "prometheus_role" {
   version = "4.7.0"
 
   create_role      = true
-  role_description = "prometheus Role"
+  role_description = "Prometheus Role"
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns = var.enable_kms ? [
