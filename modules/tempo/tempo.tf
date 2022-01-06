@@ -78,7 +78,7 @@ resource "aws_iam_policy" "kms" {
   name        = format("%s-kms", local.service_name)
   path        = "/"
   description = "KMS permissions for Tempo"
-  policy      = data.aws_iam_policy_document.kms.json
+  policy      = data.aws_iam_policy_document.kms[0].json
   tags = merge(
     { "Name" = format("%s-kms", local.service_name) },
     local.tags
