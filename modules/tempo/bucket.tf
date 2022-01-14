@@ -14,7 +14,7 @@
 
 module "tempo_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.11.1"
+  version = "2.12.0"
 
   bucket                  = format("%s-log", local.service_name)
   block_public_acls       = true
@@ -47,7 +47,7 @@ module "tempo_log" {
 
 module "tempo" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.11.1"
+  version = "2.12.0"
 
   bucket                  = local.service_name
   block_public_acls       = true
