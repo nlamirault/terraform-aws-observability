@@ -14,7 +14,7 @@
 
 module "loki_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.12.0"
+  version = "2.13.0"
 
   bucket                  = format("%s-log", local.service_name)
   block_public_acls       = true
@@ -47,7 +47,7 @@ module "loki_log" {
 
 module "loki" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.12.0"
+  version = "2.13.0"
 
   bucket                  = local.service_name
   block_public_acls       = true
