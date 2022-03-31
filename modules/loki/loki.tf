@@ -87,7 +87,7 @@ resource "aws_iam_policy" "kms" {
 
 module "loki_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "4.15.1"
+  version = "4.17.2"
 
   create_role      = true
   role_description = "Role for Loki"
