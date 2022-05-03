@@ -38,14 +38,7 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    - name: Terraform Format
-      id: fmt
-      run: terraform fmt -check
-
-    - name: Terraform Init
-      id: init
-      run: terraform init
-
     - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
+      id: fmt
+      run: |
+        for i in $(ls modules) ; do pushd "modules/$i" ; terraform init ; terraform fmt -check ; terraform validate ; popd ; done
