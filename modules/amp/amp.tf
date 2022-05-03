@@ -16,11 +16,13 @@ resource "aws_prometheus_workspace" "amp" {
   alias = var.alias
 }
 
-#tfsec:ignore:AWS099
 data "aws_iam_policy_document" "amp" {
   statement {
     actions = [
-      "aps:*"
+      "aps:RemoteWrite",
+      "aps:GetSeries",
+      "aps:GetLabels",
+      "aps:GetMetricMetadata"
     ]
 
     resources = [
