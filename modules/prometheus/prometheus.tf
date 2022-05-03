@@ -21,6 +21,7 @@ data "aws_iam_policy_document" "bucket" {
       "s3:PutObject",
     ]
 
+    #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
       data.aws_s3_bucket.thanos.arn,
       "${data.aws_s3_bucket.thanos.arn}/*"
@@ -46,6 +47,7 @@ data "aws_iam_policy_document" "kms" {
   statement {
     effect = "Allow"
 
+    #tfsec:ignore:aws-iam-no-policy-wildcards
     actions = [
       "kms:Encrypt",
       "kms:Decrypt",

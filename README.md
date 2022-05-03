@@ -1,6 +1,6 @@
 # Observability components into Amazon AWS
 
-![Tfsec](https://github.com/nlamirault/terraform-aws-observability/workflows/Tfsec/badge.svg)
+[![Project / Tfsec](https://github.com/nlamirault/terraform-aws-observability/actions/workflows/tfsec.yml/badge.svg)](https://github.com/nlamirault/terraform-aws-observability/actions/workflows/tfsec.yml)
 
 This module consists of the following submodules:
 

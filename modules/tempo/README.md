@@ -60,9 +60,9 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tempo"></a> [tempo](#module\_tempo) | terraform-aws-modules/s3-bucket/aws | 2.11.1 |
-| <a name="module_tempo_log"></a> [tempo\_log](#module\_tempo\_log) | terraform-aws-modules/s3-bucket/aws | 2.11.1 |
-| <a name="module_tempo_role"></a> [tempo\_role](#module\_tempo\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.7.0 |
+| <a name="module_tempo"></a> [tempo](#module\_tempo) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
+| <a name="module_tempo_log"></a> [tempo\_log](#module\_tempo\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
+| <a name="module_tempo_role"></a> [tempo\_role](#module\_tempo\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.23.0 |
 
 ## Resources
 
