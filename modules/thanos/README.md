@@ -48,20 +48,20 @@ tags = {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.14.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.14.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_thanos"></a> [thanos](#module\_thanos) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
-| <a name="module_thanos_log"></a> [thanos\_log](#module\_thanos\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
+| <a name="module_thanos"></a> [thanos](#module\_thanos) | terraform-aws-modules/s3-bucket/aws | 3.1.1 |
+| <a name="module_thanos_log"></a> [thanos\_log](#module\_thanos\_log) | terraform-aws-modules/s3-bucket/aws | 3.1.1 |
 | <a name="module_thanos_role"></a> [thanos\_role](#module\_thanos\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.23.0 |
 
 ## Resources

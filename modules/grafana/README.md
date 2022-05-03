@@ -41,41 +41,41 @@ tags = {
 
 | Name | Version |
 |------|---------|
-| terraform | >= 1.0.0 |
-| aws | >= 3.14.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.14.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| grafana_role | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.7.0 |
+| <a name="module_grafana_role"></a> [grafana\_role](#module\_grafana\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.23.0 |
 
 ## Resources
 
-| Name |
-|------|
-| [aws_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/eks_cluster) |
-| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/resources/iam_policy) |
-| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/3.14.0/docs/data-sources/iam_policy_document) |
+| Name | Type |
+|------|------|
+| [aws_iam_policy.grafana](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
+| [aws_iam_policy_document.grafana_permissions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cluster\_name | Name of the EKS cluster | `string` | n/a | yes |
-| namespace | The Kubernetes namespace | `string` | n/a | yes |
-| service\_account | The Kubernetes service account | `string` | n/a | yes |
-| tags | Tags for grafana | `map(string)` | `{}` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
+| <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for grafana | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| role\_arn | Amazon Resource Name for Grafana |
+| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Amazon Resource Name for Grafana |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
