@@ -33,9 +33,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Setup tools
-      uses: ./.github/actions/tools
-
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
