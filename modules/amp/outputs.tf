@@ -27,11 +27,16 @@
 # limitations under the License.
 
 output "amp_endpoint" {
-  value       = aws_prometheus_workspace.amp.prometheus_endpoint
+  value       = module.amp.workspace_prometheus_endpoint
   description = "Prometheus endpoint available for this workspace"
 }
 
 output "amp_id" {
-  value       = aws_prometheus_workspace.amp.id
+  value       = module.amp.workspace_id
   description = "Identifier of the workspace"
+}
+
+output "amp_arn" {
+  value       = module.amp.workspace_arn
+  description = "Amazon Resource Name of the workspace"
 }

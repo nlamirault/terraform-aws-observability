@@ -30,6 +30,13 @@ resource "aws_prometheus_workspace" "amp" {
   alias = var.alias
 }
 
+module "amp" {
+  source  = "terraform-aws-modules/managed-service-prometheus/aws"
+  version = "2.1.2"
+
+  workspace_alias = var.alias
+}
+
 #tfsec:ignore:AWS099
 data "aws_iam_policy_document" "amp" {
   statement {
@@ -38,7 +45,7 @@ data "aws_iam_policy_document" "amp" {
     ]
 
     resources = [
-      aws_prometheus_workspace.amp.arn
+      module.amp.workspace_arn
     ]
   }
 }
