@@ -45,3 +45,12 @@ repos:
     - id: terraform_tfsec
       args:
        - '--args=--config-file __GIT_WORKING_DIR__/.tfsec.yml'
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.1.10
+  hooks:
+    - id: insert-license
+      files: (Makefile|\.tf|\.yaml|\.yml)
+      args:
+      - --license-filepath
+      - hack/config/licence.txt
+      - --remove-header
