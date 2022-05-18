@@ -90,7 +90,7 @@ resource "aws_iam_policy" "kms" {
 
 module "thanos_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "4.24.1"
+  version = "5.0.0"
 
   for_each = toset(var.service_accounts)
 
