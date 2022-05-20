@@ -54,7 +54,7 @@ tags = {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.14.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.12.1 |
 
 ## Modules
 
@@ -62,7 +62,7 @@ tags = {
 |------|--------|---------|
 | <a name="module_thanos"></a> [thanos](#module\_thanos) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
 | <a name="module_thanos_log"></a> [thanos\_log](#module\_thanos\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
-| <a name="module_thanos_role"></a> [thanos\_role](#module\_thanos\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.23.0 |
+| <a name="module_thanos_role"></a> [thanos\_role](#module\_thanos\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.0.0 |
 
 ## Resources
 

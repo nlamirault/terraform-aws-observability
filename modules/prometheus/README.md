@@ -57,13 +57,13 @@ tags = {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.14.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.12.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_prometheus_role"></a> [prometheus\_role](#module\_prometheus\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.23.0 |
+| <a name="module_prometheus_role"></a> [prometheus\_role](#module\_prometheus\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.0.0 |
 
 ## Resources
 
