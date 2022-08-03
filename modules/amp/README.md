@@ -22,8 +22,8 @@ Terraform module which configure an AWS managed service for Prometheus instance.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_amp"></a> [amp](#module\_amp) | terraform-aws-modules/managed-service-prometheus/aws | 2.1.2 |
-| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.13.1 |
+| <a name="module_amp"></a> [amp](#module\_amp) | terraform-aws-modules/managed-service-prometheus/aws | 2.2.0 |
+| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.2.0 |
 
 ## Resources
 
