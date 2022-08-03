@@ -54,7 +54,7 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_grafana_role"></a> [grafana\_role](#module\_grafana\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.0.0 |
+| <a name="module_grafana_role"></a> [grafana\_role](#module\_grafana\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.2.0 |
 
 ## Resources
 

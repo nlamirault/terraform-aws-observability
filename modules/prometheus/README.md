@@ -63,7 +63,7 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_prometheus_role"></a> [prometheus\_role](#module\_prometheus\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.0.0 |
+| <a name="module_prometheus_role"></a> [prometheus\_role](#module\_prometheus\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.2.0 |
 
 ## Resources
 

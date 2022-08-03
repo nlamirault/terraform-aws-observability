@@ -62,7 +62,7 @@ tags = {
 |------|--------|---------|
 | <a name="module_loki"></a> [loki](#module\_loki) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
 | <a name="module_loki_log"></a> [loki\_log](#module\_loki\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
-| <a name="module_loki_role"></a> [loki\_role](#module\_loki\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.0.0 |
+| <a name="module_loki_role"></a> [loki\_role](#module\_loki\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.2.0 |
 
 ## Resources
 
