@@ -13,16 +13,17 @@
 # limitations under the License.
 
 locals {
-  service_name = format("%s-amp", var.cluster_name)
+  service_name = format("%s-amg", var.cluster_name)
+  description  = format("AWS Managed Grafana service for %s", local.service_name)
 
-  role_name = "aws-managed-prometheus"
+  role_name = "aws-managed-grafana"
 
   tags = merge(
     var.tags,
     {
       "Made-By" = "terraform"
-      "Service" = "aws-prometheus"
-      "Iam"     = "eks-prometheus"
+      "Service" = "aws-grafana"
+      "Iam"     = "eks-grafana"
     }
   )
 }

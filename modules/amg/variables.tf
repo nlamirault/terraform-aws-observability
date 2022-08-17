@@ -12,31 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# AWS Managed Prometheus
-
-variable "alias" {
-  description = "Workspace name"
-  type        = string
-}
+#############################################################################
+# Amazon Managed Grafana
 
 variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster"
 }
 
-variable "namespace" {
-  type        = string
-  description = "The Kubernetes namespace"
-}
-
-variable "service_account" {
-  type        = string
-  description = "The Kubernetes service account"
-}
-
 variable "tags" {
   type        = map(string)
-  description = "Tags for resources"
+  description = "Tags for grafana"
   default = {
   }
 }

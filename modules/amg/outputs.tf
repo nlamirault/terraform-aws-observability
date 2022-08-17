@@ -11,18 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-output "amp_endpoint" {
-  value       = module.amp.workspace_prometheus_endpoint
-  description = "Prometheus endpoint available for this workspace"
-}
-
-output "amp_id" {
-  value       = module.amp.workspace_id
-  description = "Identifier of the workspace"
-}
-
-output "amp_arn" {
-  value       = module.amp.workspace_arn
-  description = "Amazon Resource Name of the workspace"
-}
