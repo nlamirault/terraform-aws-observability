@@ -10,5 +10,6 @@ This module consists of the following submodules:
 - [tempo](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/tempo)
 - [grafana](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/grafana)
 - [AWS Managed Service for Prometheus](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/amp)
+- [AWS Distro for OpenTelemetry (ADOT) Operator](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/adot)
 
 See more details in each module's README.
