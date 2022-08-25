@@ -14,7 +14,7 @@
 
 module "adot_collector" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.3.0"
+  version = "5.3.1"
 
   create_role      = true
   role_description = "ADOTCollector"
