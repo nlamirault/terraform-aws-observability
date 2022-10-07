@@ -13,16 +13,5 @@
 # limitations under the License.
 
 locals {
-  service_name = format("%s-grafana", var.cluster_name)
-
   role_name = "grafana"
-
-  tags = merge(
-    var.tags,
-    {
-      "Made-By" = "terraform"
-      "Service" = "grafana"
-      "Iam"     = "eks-grafana"
-    }
-  )
 }
