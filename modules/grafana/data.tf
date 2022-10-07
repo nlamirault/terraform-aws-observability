@@ -15,3 +15,11 @@
 data "aws_eks_cluster" "this" {
   name = var.cluster_name
 }
+
+data "aws_iam_policy" "cloudwatch_readonly_access" {
+  arn = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+}
+
+data "aws_iam_policy" "timestream_readonly_access" {
+  arn = "arn:aws:iam::aws:policy/AmazonTimestreamReadOnlyAccess"
+}
