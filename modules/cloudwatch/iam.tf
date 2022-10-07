@@ -12,8 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-locals {
-  service_name = format("%s-amp", var.cluster_name)
+module "irsa_agent" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version = "5.5.0"
 
-  role_name = "aws-managed-prometheus"
+  create_role      = true
+  role_description = "Cloudwatch Agent"
+  role_name        = local.role_name
+  provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+  role_policy_arns = [
+    data.aws_iam_policy.cloudwatch_agent_server.arn
+  ]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+
+  tags = merge(
+    { "Name" = local.role_name },
+    var.tags
+  )
 }

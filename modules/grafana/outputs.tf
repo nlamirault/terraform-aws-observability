@@ -13,6 +13,6 @@
 # limitations under the License.
 
 output "role_arn" {
-  value       = module.grafana_role.iam_role_arn
+  value       = module.irsa.iam_role_arn
   description = "Amazon Resource Name for Grafana"
 }

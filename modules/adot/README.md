@@ -22,7 +22,7 @@ Terraform module which configure the AWS Distro for OpenTelemetry (ADOT) Operato
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_adot_collector"></a> [adot\_collector](#module\_adot\_collector) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
+| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
 
 ## Resources
 
@@ -44,5 +44,7 @@ Terraform module which configure the AWS Distro for OpenTelemetry (ADOT) Operato
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Amazon Resource Name for ADOT Collector |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

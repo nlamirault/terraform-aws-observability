@@ -22,7 +22,7 @@ Terraform module which configure Grafana Cloudwatch resources on Amazon AWS
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_agent"></a> [agent](#module\_agent) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
+| <a name="module_irsa_agent"></a> [irsa\_agent](#module\_irsa\_agent) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
 
 ## Resources
 
@@ -49,5 +49,7 @@ Terraform module which configure Grafana Cloudwatch resources on Amazon AWS
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_agent_role_arn"></a> [agent\_role\_arn](#output\_agent\_role\_arn) | Amazon Resource Name for Cloudwatch Agent |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

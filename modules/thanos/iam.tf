@@ -25,8 +25,8 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.tempo.s3_bucket_arn,
-      "${module.tempo.s3_bucket_arn}/*"
+      module.thanos.s3_bucket_arn,
+      "${module.thanos.s3_bucket_arn}/*"
     ]
   }
 
@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "bucket" {
   #     "kms:GenerateDataKey*",
   #   ]
 
-  #   resources = var.enable_kms ? [aws_kms_key.tempo[0].arn] : []
+  #   resources = var.enable_kms ? [aws_kms_key.thanos[0].arn] : []
   # }
 
 }
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "kms" {
     ]
 
     resources = [
-      aws_kms_key.tempo[0].arn
+      aws_kms_key.thanos[0].arn
     ]
   }
 }
@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "kms" {
 resource "aws_iam_policy" "bucket" {
   name        = format("%s-bucket", local.service_name)
   path        = "/"
-  description = "Bucket permissions for Tempo"
+  description = "Bucket permissions for Thanos"
   policy      = data.aws_iam_policy_document.bucket.json
   tags = merge(
     { "Name" = format("%s-bucket", local.service_name) },
@@ -79,7 +79,7 @@ resource "aws_iam_policy" "kms" {
 
   name        = format("%s-kms", local.service_name)
   path        = "/"
-  description = "KMS permissions for Tempo"
+  description = "Bucket permissions for Thanos"
   policy      = data.aws_iam_policy_document.kms[0].json
   tags = merge(
     { "Name" = format("%s-kms", local.service_name) },
@@ -87,14 +87,15 @@ resource "aws_iam_policy" "kms" {
   )
 }
 
-
-module "tempo_role" {
+module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.5.0"
 
+  for_each = toset(var.service_accounts)
+
   create_role      = true
-  role_description = "Role for Tempo"
-  role_name        = local.role_name
+  role_description = "Role for Thanos"
+  role_name        = each.value
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns = var.enable_kms ? [
     aws_iam_policy.bucket.arn,
@@ -102,7 +103,7 @@ module "tempo_role" {
     ] : [
     aws_iam_policy.bucket.arn,
   ]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${each.value}"]
   tags = merge(
     { "Name" = local.role_name },
     var.tags
