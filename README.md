@@ -9,6 +9,7 @@ This module consists of the following submodules:
 - [loki](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/loki)
 - [tempo](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/tempo)
 - [grafana](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/grafana)
+- [mimir](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/mimir)
 - [AWS Managed Service for Prometheus](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/amp)
 - [AWS Managed Grafana](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/amg)
 - [AWS Distro for OpenTelemetry (ADOT) Operator](https://github.com/nlamirault/terraform-aws-observability/tree/master/modules/adot)
