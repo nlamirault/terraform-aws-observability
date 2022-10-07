@@ -21,7 +21,6 @@ module "grafana_role" {
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns = [
-    aws_iam_policy.grafana.arn,
     data.aws_iam_policy.cloudwatch_readonly_access,
     data.aws_iam_policy.timestream_readonly_access
   ]
