@@ -48,7 +48,7 @@ resource "aws_iam_policy" "amp" {
 
 module "prometheus" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.3.3"
+  version = "5.5.0"
 
   create_role                   = true
   role_description              = "AWS Managed Prometheus role"
