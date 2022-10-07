@@ -45,6 +45,7 @@ module "loki_log" {
   } : {}
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
 module "loki" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.15.0"

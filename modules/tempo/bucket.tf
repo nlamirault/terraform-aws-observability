@@ -45,6 +45,7 @@ module "tempo_log" {
   } : {}
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
 module "tempo" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.15.0"
