@@ -21,9 +21,9 @@ module "adot_collector" {
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns = [
-    "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
-    "arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess",
-    "arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess"
+    data.aws_iam_policy.cloudwatch_agent_server.arn,
+    data.aws_iam_policy.amp_remote_write_access.arn,
+    data.aws_iam_policy.xray_write_access.arn
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
 

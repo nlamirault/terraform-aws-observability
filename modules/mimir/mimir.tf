@@ -99,8 +99,10 @@ module "mimir_role" {
   role_policy_arns = var.enable_kms ? [
     aws_iam_policy.bucket.arn,
     aws_iam_policy.kms[0].arn,
+    data.aws_iam_policy.amp_remote_write_access.arn
     ] : [
     aws_iam_policy.bucket.arn,
+    data.aws_iam_policy.amp_remote_write_access.arn
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
