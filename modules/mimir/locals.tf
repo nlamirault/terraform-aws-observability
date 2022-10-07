@@ -16,13 +16,4 @@ locals {
   service_name = format("%s-mimir", var.cluster_name)
 
   role_name = "mimir"
-
-  tags = merge(
-    var.tags,
-    {
-      "Made-By" = "terraform"
-      "Service" = "mimir"
-      "Iam"     = "eks-mimir"
-    }
-  )
 }

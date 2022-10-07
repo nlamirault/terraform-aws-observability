@@ -29,6 +29,6 @@ module "adot_collector" {
 
   tags = merge(
     { "Name" = local.role_name },
-    local.tags
+    var.tags
   )
 }

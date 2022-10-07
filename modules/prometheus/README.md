@@ -87,7 +87,7 @@ tags = {
 | <a name="input_enable_kms"></a> [enable\_kms](#input\_enable\_kms) | Enable custom KMS key | `bool` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
 | <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags for Loki | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for Loki | `map(string)` | <pre>{<br>  "Made-By": "Terraform"<br>}</pre> | no |
 
 ## Outputs
 

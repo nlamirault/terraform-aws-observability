@@ -33,6 +33,7 @@ variable "tags" {
   type        = map(string)
   description = "Tags for Loki"
   default = {
+    "Made-By" = "Terraform"
   }
 }
 

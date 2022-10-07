@@ -42,7 +42,7 @@ resource "aws_iam_policy" "amp" {
   policy      = data.aws_iam_policy_document.amp.json
   tags = merge(
     { "Name" = format("%s-aps", local.service_name) },
-    local.tags
+    var.tags
   )
 }
 
@@ -58,6 +58,6 @@ module "prometheus" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
     { "Name" = local.role_name },
-    local.tags
+    var.tags
   )
 }

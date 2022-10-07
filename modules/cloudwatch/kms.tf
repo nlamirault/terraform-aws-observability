@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+# Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# name: Project / Pre-commit
+resource "aws_kms_key" "cloudwatch" {
+  count                   = var.enable_kms ? 1 : 0
+  description             = "KMS for CloudWatch"
+  deletion_window_in_days = var.deletion_window_in_days
+  enable_key_rotation     = true
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
+}
 
-# on:
-#   pull_request:
-#   push:
-#     branches: [master]
-
-# jobs:
-#   pre-commit:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v2
-#     - uses: actions/setup-python@v2
-#     - uses: pre-commit/action@v2.0.0
+resource "aws_kms_alias" "cloudwatch" {
+  count         = var.enable_kms ? 1 : 0
+  name          = "alias/cloudwatch"
+  target_key_id = aws_kms_key.cloudwatch[0].key_id
+}

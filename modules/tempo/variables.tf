@@ -32,8 +32,9 @@ variable "service_account" {
 
 variable "tags" {
   type        = map(string)
-  description = "Tags for Loki"
+  description = "Tags for Tempo"
   default = {
+    "Made-By" = "Terraform"
   }
 }
 

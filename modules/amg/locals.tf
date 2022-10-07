@@ -17,13 +17,4 @@ locals {
   description  = format("AWS Managed Grafana service for %s", local.service_name)
 
   role_name = "aws-managed-grafana"
-
-  tags = merge(
-    var.tags,
-    {
-      "Made-By" = "terraform"
-      "Service" = "aws-grafana"
-      "Iam"     = "eks-grafana"
-    }
-  )
 }

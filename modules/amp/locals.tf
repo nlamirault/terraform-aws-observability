@@ -16,13 +16,4 @@ locals {
   service_name = format("%s-amp", var.cluster_name)
 
   role_name = "aws-managed-prometheus"
-
-  tags = merge(
-    var.tags,
-    {
-      "Made-By" = "terraform"
-      "Service" = "aws-prometheus"
-      "Iam"     = "eks-prometheus"
-    }
-  )
 }

@@ -67,7 +67,7 @@ resource "aws_iam_policy" "bucket" {
   policy      = data.aws_iam_policy_document.bucket.json
   tags = merge(
     { "Name" = format("%s-bucket", local.service_name) },
-    local.tags
+    var.tags
   )
 }
 
@@ -80,7 +80,7 @@ resource "aws_iam_policy" "kms" {
   policy      = data.aws_iam_policy_document.kms[0].json
   tags = merge(
     { "Name" = format("%s-kms", local.service_name) },
-    local.tags
+    var.tags
   )
 }
 
@@ -103,6 +103,6 @@ module "prometheus_role" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(
     { "Name" = local.role_name },
-    local.tags
+    var.tags
   )
 }

@@ -16,13 +16,4 @@ locals {
   service_name = format("%s-loki", var.cluster_name)
 
   role_name = "loki"
-
-  tags = merge(
-    var.tags,
-    {
-      "Made-By" = "terraform"
-      "Service" = "grafana"
-      "Iam"     = "eks-grafana"
-    }
-  )
 }

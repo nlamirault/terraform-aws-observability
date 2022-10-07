@@ -23,7 +23,7 @@ Terraform module which configure an AWS managed service for Prometheus instance.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_amp"></a> [amp](#module\_amp) | terraform-aws-modules/managed-service-prometheus/aws | 2.2.0 |
-| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.2.0 |
+| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
 
 ## Resources
 
@@ -42,7 +42,7 @@ Terraform module which configure an AWS managed service for Prometheus instance.
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
 | <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags for resources | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for resources | `map(string)` | <pre>{<br>  "Made-By": "Terraform"<br>}</pre> | no |
 
 ## Outputs
 
