@@ -19,7 +19,7 @@ resource "aws_kms_key" "thanos" {
   enable_key_rotation     = true
   tags = merge(
     { "Name" = local.service_name },
-    local.tags
+    var.tags
   )
 }
 

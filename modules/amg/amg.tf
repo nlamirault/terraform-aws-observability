@@ -38,6 +38,6 @@ module "managed_grafana" {
 
   tags = merge(
     { "Name" = format("%s-amg", local.service_name) },
-    local.tags
+    var.tags
   )
 }

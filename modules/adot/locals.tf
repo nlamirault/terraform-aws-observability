@@ -14,13 +14,4 @@
 
 locals {
   role_name = "adot-collector"
-
-  tags = merge(
-    var.tags,
-    {
-      "Made-By" = "terraform"
-      "Service" = "adot-collector"
-      "Iam"     = "eks-prometheus"
-    }
-  )
 }

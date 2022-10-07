@@ -12,32 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# AWS Managed Prometheus
-
-variable "alias" {
-  description = "Workspace name"
-  type        = string
+resource "aws_kms_key" "cloudwatch" {
+  count                   = var.enable_kms ? 1 : 0
+  description             = "KMS for CloudWatch"
+  deletion_window_in_days = var.deletion_window_in_days
+  enable_key_rotation     = true
+  tags = merge(
+    { "Name" = local.service_name },
+    local.tags
+  )
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "Name of the EKS cluster"
-}
-
-variable "namespace" {
-  type        = string
-  description = "The Kubernetes namespace"
-}
-
-variable "service_account" {
-  type        = string
-  description = "The Kubernetes service account"
-}
-
-variable "tags" {
-  type        = map(string)
-  description = "Tags for resources"
-  default = {
-    "Made-By" = "Terraform"
-  }
+resource "aws_kms_alias" "cloudwatch" {
+  count         = var.enable_kms ? 1 : 0
+  name          = "alias/cloudwatch"
+  target_key_id = aws_kms_key.cloudwatch[0].key_id
 }

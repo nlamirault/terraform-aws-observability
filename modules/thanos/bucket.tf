@@ -27,7 +27,7 @@ module "thanos_log" {
 
   tags = merge(
     { "Name" = format("%s-log", local.service_name) },
-    local.tags
+    var.tags
   )
 
   versioning = {
@@ -61,7 +61,7 @@ module "thanos" {
 
   tags = merge(
     { "Name" = local.service_name },
-    local.tags
+    var.tags
   )
 
   logging = {

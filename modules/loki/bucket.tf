@@ -27,7 +27,7 @@ module "loki_log" {
 
   tags = merge(
     { "Name" = format("%s-log", local.service_name) },
-    local.tags
+    var.tags
   )
 
   versioning = {
@@ -61,7 +61,7 @@ module "loki" {
 
   tags = merge(
     { "Name" = local.service_name },
-    local.tags
+    var.tags
   )
 
   logging = {
