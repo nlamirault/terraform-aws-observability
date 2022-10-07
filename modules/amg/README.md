@@ -31,7 +31,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags for grafana | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for grafana | `map(string)` | <pre>{<br>  "Made-By": "Terraform"<br>}</pre> | no |
 
 ## Outputs
 

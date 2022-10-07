@@ -54,7 +54,7 @@ tags = {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.12.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0.0 |
 
 ## Modules
 
@@ -62,7 +62,7 @@ tags = {
 |------|--------|---------|
 | <a name="module_thanos"></a> [thanos](#module\_thanos) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
 | <a name="module_thanos_log"></a> [thanos\_log](#module\_thanos\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
-| <a name="module_thanos_role"></a> [thanos\_role](#module\_thanos\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.2.0 |
+| <a name="module_thanos_role"></a> [thanos\_role](#module\_thanos\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
 
 ## Resources
 
@@ -85,7 +85,7 @@ tags = {
 | <a name="input_enable_kms"></a> [enable\_kms](#input\_enable\_kms) | Enable custom KMS key | `bool` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
 | <a name="input_service_accounts"></a> [service\_accounts](#input\_service\_accounts) | The Kubernetes service account | `list(string)` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags for Thanos | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for Thanos | `map(string)` | <pre>{<br>  "Made-By": "Terraform"<br>}</pre> | no |
 
 ## Outputs
 
