@@ -11,3 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+output "agent_role_arn" {
+  value       = module.irsa_agent.iam_role_arn
+  description = "Amazon Resource Name for Cloudwatch Agent"
+}

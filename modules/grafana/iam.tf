@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module "agent" {
+module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.5.0"
 
   create_role      = true
-  role_description = "Cloudwatch Agent"
+  role_description = "Role for Grafana"
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns = [
-    data.aws_iam_policy.cloudwatch_agent_server.arn
+    data.aws_iam_policy.cloudwatch_readonly_access.arn,
+    data.aws_iam_policy.timestream_readonly_access.arn,
+    data.aws_iam_policy.amp_query_access
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
-
   tags = merge(
     { "Name" = local.role_name },
     var.tags

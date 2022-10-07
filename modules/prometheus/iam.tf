@@ -14,8 +14,6 @@
 
 data "aws_iam_policy_document" "bucket" {
   statement {
-    effect = "Allow"
-
     actions = [
       "s3:ListBucket",
       "s3:GetObject",
@@ -25,8 +23,8 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.loki.s3_bucket_arn,
-      "${module.loki.s3_bucket_arn}/*"
+      data.aws_s3_bucket.thanos.arn,
+      "${data.aws_s3_bucket.thanos.arn}/*"
     ]
   }
 
@@ -39,11 +37,10 @@ data "aws_iam_policy_document" "bucket" {
   #     "kms:GenerateDataKey*",
   #   ]
 
-  #   resources = var.enable_kms ? [aws_kms_key.loki[0].arn] : []
+  #   resources = var.enable_kms ? [data.aws_kms_key.thanos[0].arn] : []
   # }
 }
 
-#tfsec:ignore:AWS099
 data "aws_iam_policy_document" "kms" {
   count = var.enable_kms ? 1 : 0
 
@@ -58,7 +55,7 @@ data "aws_iam_policy_document" "kms" {
     ]
 
     resources = [
-      aws_kms_key.loki[0].arn
+      data.aws_kms_key.thanos[0].arn
     ]
   }
 }
@@ -66,7 +63,7 @@ data "aws_iam_policy_document" "kms" {
 resource "aws_iam_policy" "bucket" {
   name        = format("%s-bucket", local.service_name)
   path        = "/"
-  description = "Bucket permissions for Loki"
+  description = "Bucket permissions for Prometheus"
   policy      = data.aws_iam_policy_document.bucket.json
   tags = merge(
     { "Name" = format("%s-bucket", local.service_name) },
@@ -79,7 +76,7 @@ resource "aws_iam_policy" "kms" {
 
   name        = format("%s-kms", local.service_name)
   path        = "/"
-  description = "KMS permissions for Loki"
+  description = "KMS permissions for Prometheus"
   policy      = data.aws_iam_policy_document.kms[0].json
   tags = merge(
     { "Name" = format("%s-kms", local.service_name) },
@@ -87,19 +84,21 @@ resource "aws_iam_policy" "kms" {
   )
 }
 
-module "loki_role" {
+module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.5.0"
 
   create_role      = true
-  role_description = "Role for Loki"
+  role_description = "Prometheus Role"
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
   role_policy_arns = var.enable_kms ? [
     aws_iam_policy.bucket.arn,
     aws_iam_policy.kms[0].arn,
+    data.aws_iam_policy.amp_remote_write_access.arn
     ] : [
     aws_iam_policy.bucket.arn,
+    data.aws_iam_policy.amp_remote_write_access.arn
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
   tags = merge(

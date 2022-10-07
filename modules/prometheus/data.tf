@@ -25,6 +25,7 @@ data "aws_eks_cluster" "this" {
   name = var.cluster_name
 }
 
+# https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-and-IAM.html
 data "aws_iam_policy" "amp_remote_write_access" {
   arn = "arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess"
 }

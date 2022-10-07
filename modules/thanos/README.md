@@ -60,9 +60,9 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
 | <a name="module_thanos"></a> [thanos](#module\_thanos) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
 | <a name="module_thanos_log"></a> [thanos\_log](#module\_thanos\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
-| <a name="module_thanos_role"></a> [thanos\_role](#module\_thanos\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
 
 ## Resources
 

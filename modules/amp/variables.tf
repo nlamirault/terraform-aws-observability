@@ -19,21 +19,6 @@ variable "alias" {
   type        = string
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "Name of the EKS cluster"
-}
-
-variable "namespace" {
-  type        = string
-  description = "The Kubernetes namespace"
-}
-
-variable "service_account" {
-  type        = string
-  description = "The Kubernetes service account"
-}
-
 variable "tags" {
   type        = map(string)
   description = "Tags for resources"
