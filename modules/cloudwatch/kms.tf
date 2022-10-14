@@ -14,12 +14,12 @@
 
 resource "aws_kms_key" "cloudwatch" {
   count                   = var.enable_kms ? 1 : 0
-  description             = "KMS for CloudWatch"
+  description             = local.key_name
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = true
   tags = merge(
-    { "Name" = local.service_name },
-    local.tags
+    { "Name" = local.key_name },
+    var.tags
   )
 }
 
