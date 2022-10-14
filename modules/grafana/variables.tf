@@ -20,6 +20,12 @@ variable "cluster_name" {
   description = "Name of the EKS cluster"
 }
 
+variable "role_policy_arns" {
+  description = "List of ARNs of IAM policies to attach to IAM role"
+  type        = list(string)
+  default     = []
+}
+
 variable "namespace" {
   type        = string
   description = "The Kubernetes namespace"
