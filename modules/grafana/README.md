@@ -54,7 +54,7 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
+| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.2 |
 
 ## Resources
 
@@ -71,6 +71,7 @@ tags = {
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
+| <a name="input_role_policy_arns"></a> [role\_policy\_arns](#input\_role\_policy\_arns) | List of ARNs of IAM policies to attach to IAM role | `list(string)` | `[]` | no |
 | <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags for grafana | `map(string)` | <pre>{<br>  "Made-By": "terraform"<br>}</pre> | no |
 

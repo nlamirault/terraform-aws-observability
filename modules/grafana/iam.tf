@@ -20,12 +20,16 @@ module "irsa" {
   role_description = "Role for Grafana"
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-  role_policy_arns = [
+
+  role_policy_arns = concat([
     data.aws_iam_policy.cloudwatch_readonly_access.arn,
     data.aws_iam_policy.timestream_readonly_access.arn,
     data.aws_iam_policy.amp_query_access
-  ]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  ], var.role_policy_arns)
+
+  oidc_fully_qualified_subjects  = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  oidc_fully_qualified_audiences = ["sts.amazonaws.com"]
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags

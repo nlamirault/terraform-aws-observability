@@ -60,9 +60,9 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.0 |
-| <a name="module_loki"></a> [loki](#module\_loki) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
-| <a name="module_loki_log"></a> [loki\_log](#module\_loki\_log) | terraform-aws-modules/s3-bucket/aws | 2.15.0 |
+| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.2 |
+| <a name="module_loki"></a> [loki](#module\_loki) | terraform-aws-modules/s3-bucket/aws | 3.4.0 |
+| <a name="module_loki_log"></a> [loki\_log](#module\_loki\_log) | terraform-aws-modules/s3-bucket/aws | 3.4.0 |
 
 ## Resources
 

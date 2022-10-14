@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-locals {
-  service_name = format("%s-amp", var.cluster_name)
-}
+# set -euo pipefail
+set -o pipefail
+
+for module in $(ls modules); do
+    pushd "modules/${module}"
+    terraform init -upgrade
+    terraform validate
+    popd
+done

@@ -14,7 +14,7 @@
 
 # AWS Managed Prometheus
 
-variable "alias" {
+variable "name" {
   description = "Workspace name"
   type        = string
 }
