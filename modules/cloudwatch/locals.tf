@@ -14,7 +14,7 @@
 
 locals {
   role_name = "cloudwatch-agent"
-  key_name = "cloudwatch-agent"
+  key_name  = "cloudwatch-agent"
 
   container_insights_groups = [
     "application",

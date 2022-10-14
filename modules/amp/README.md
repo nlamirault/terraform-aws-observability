@@ -30,7 +30,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alias"></a> [alias](#input\_alias) | Workspace name | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Workspace name | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags for resources | `map(string)` | <pre>{<br>  "Made-By": "Terraform"<br>}</pre> | no |
 
 ## Outputs
