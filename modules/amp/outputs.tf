@@ -26,8 +26,3 @@ output "amp_arn" {
   value       = module.amp.workspace_arn
   description = "Amazon Resource Name of the workspace"
 }
-
-output "role_arn" {
-  value       = module.irsa.iam_role_arn
-  description = "Amazon Resource Name for AMP"
-}
