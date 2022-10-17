@@ -40,5 +40,4 @@ No resources.
 | <a name="output_amp_arn"></a> [amp\_arn](#output\_amp\_arn) | Amazon Resource Name of the workspace |
 | <a name="output_amp_endpoint"></a> [amp\_endpoint](#output\_amp\_endpoint) | Prometheus endpoint available for this workspace |
 | <a name="output_amp_id"></a> [amp\_id](#output\_amp\_id) | Identifier of the workspace |
-| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Amazon Resource Name for AMP |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
