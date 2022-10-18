@@ -24,7 +24,7 @@ module "irsa" {
   role_policy_arns = concat([
     data.aws_iam_policy.cloudwatch_readonly_access.arn,
     data.aws_iam_policy.timestream_readonly_access.arn,
-    data.aws_iam_policy.amp_query_access
+    data.aws_iam_policy.amp_query_access.arn
   ], var.role_policy_arns)
 
   oidc_fully_qualified_subjects  = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
