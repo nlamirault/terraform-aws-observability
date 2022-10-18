@@ -48,6 +48,22 @@
       "matchUpdateTypes": ["patch"],
       "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/low", "size/xs"]
     },
+    // Labels for TFlint Plugin
+    {
+      "matchManagers": ["tflint-plugin"],
+      "updateTypes": ["major"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/high", "size/xs"]
+    },
+    {
+      "matchManagers": ["tflint-plugin"],
+      "updateTypes": ["minor"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/medium", "size/xs"]
+    },
+    {
+      "matchManagers": ["tflint-plugin"],
+      "updateTypes": ["patch"],
+      "labels": ["kind/renovate", "lifecycle/active", "status/review_needed", "area/terraform", "dependency/terraform", "priority/low", "size/xs"]
+    },
     // Labels for Docker
     {
       "datasources": ["docker"],
