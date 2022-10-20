@@ -14,7 +14,7 @@
 
 module "amp" {
   source  = "terraform-aws-modules/managed-service-prometheus/aws"
-  version = "2.2.0"
+  version = "2.2.1"
 
   workspace_alias = var.name
 
