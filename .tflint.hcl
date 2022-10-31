@@ -44,6 +44,6 @@ rule "terraform_standard_module_structure" { enabled = true }
 
 plugin "aws" {
     enabled = true
-    version = "0.17.1"
+    version = "0.18.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
