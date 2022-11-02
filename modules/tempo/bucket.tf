@@ -16,7 +16,7 @@ module "tempo_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.5.0"
 
-  bucket                  = format("%s-log", local.service_name)
+  bucket                  = format("%s-traces", local.service_name)
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
