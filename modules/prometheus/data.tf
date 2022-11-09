@@ -29,3 +29,7 @@ data "aws_eks_cluster" "this" {
 data "aws_iam_policy" "amp_remote_write_access" {
   arn = "arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess"
 }
+
+data "aws_iam_policy" "ec2_ro_access" {
+  arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+}
