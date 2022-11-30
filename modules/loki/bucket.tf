@@ -16,7 +16,9 @@ module "bucket_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.5.0"
 
-  bucket                  = format("%s-log", local.service_name)
+  for_each = local.buckets_names
+
+  bucket                  = format("%s-%s-logging", local.service_name, each.value)
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
@@ -26,7 +28,7 @@ module "bucket_logging" {
   force_destroy = true
 
   tags = merge(
-    { "Name" = format("%s-log", local.service_name) },
+    { "Name" = format("%s-%s-logging", local.service_name, each.value) },
     var.tags
   )
 
@@ -67,7 +69,7 @@ module "buckets" {
   )
 
   logging = {
-    target_bucket = module.bucket_logging.s3_bucket_id
+    target_bucket = module.bucket_logging[format("%s-%s", local.service_name, each.value)].s3_bucket_id
     target_prefix = "log/"
   }
 
