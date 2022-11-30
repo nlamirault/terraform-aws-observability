@@ -47,6 +47,10 @@ module "buckets_logging" {
   } : {}
 }
 
+
+
+
+
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
