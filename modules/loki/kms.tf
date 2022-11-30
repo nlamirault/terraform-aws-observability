@@ -17,6 +17,7 @@ resource "aws_kms_key" "loki" {
   description             = "KMS for Loki"
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = true
+
   tags = merge(
     { "Name" = local.service_name },
     var.tags

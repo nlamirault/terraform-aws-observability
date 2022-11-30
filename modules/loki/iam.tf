@@ -25,8 +25,8 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.buckets[*].s3_bucket_arn,
-      "${module.buckets[*].s3_bucket_arn}/*"
+      module.buckets_data[*].s3_bucket_arn,
+      "${module.buckets_data[*].s3_bucket_arn}/*"
     ]
   }
 
@@ -68,6 +68,7 @@ resource "aws_iam_policy" "bucket" {
   path        = "/"
   description = "Bucket permissions for Loki"
   policy      = data.aws_iam_policy_document.bucket.json
+
   tags = merge(
     { "Name" = format("%s-bucket", local.service_name) },
     var.tags
@@ -81,6 +82,7 @@ resource "aws_iam_policy" "kms" {
   path        = "/"
   description = "KMS permissions for Loki"
   policy      = data.aws_iam_policy_document.kms[0].json
+
   tags = merge(
     { "Name" = format("%s-kms", local.service_name) },
     var.tags
@@ -102,6 +104,7 @@ module "irsa" {
     aws_iam_policy.bucket.arn,
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags
