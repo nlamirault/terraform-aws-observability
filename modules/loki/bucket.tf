@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module "bucket_logging" {
+module "buckets_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.5.0"
 
@@ -48,7 +48,7 @@ module "bucket_logging" {
 }
 
 #tfsec:ignore:aws-s3-encryption-customer-key
-module "buckets" {
+module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.6.0"
 
@@ -69,7 +69,7 @@ module "buckets" {
   )
 
   logging = {
-    target_bucket = module.bucket_logging[format("%s-%s", local.service_name, each.value)].s3_bucket_id
+    target_bucket = module.buckets_logging[format("%s-%s", local.service_name, each.value)].s3_bucket_id
     target_prefix = "log/"
   }
 
