@@ -16,4 +16,10 @@ locals {
   service_name = format("%s-mimir", var.cluster_name)
 
   role_name = "mimir"
+
+  buckets_names = [
+    "admin",
+    "ruler",
+    "tsdb"
+  ]
 }

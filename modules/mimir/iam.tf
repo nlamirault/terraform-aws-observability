@@ -25,8 +25,8 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.mimir.s3_bucket_arn,
-      "${module.mimir.s3_bucket_arn}/*"
+      module.buckets_data[*].s3_bucket_arn,
+      "${module.buckets_data[*].s3_bucket_arn}/*"
     ]
   }
 

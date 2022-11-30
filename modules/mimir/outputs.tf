@@ -13,12 +13,12 @@
 # limitations under the License.
 
 output "bucket" {
-  value       = module.mimir.s3_bucket_id
+  value       = module.buckets_data[*].s3_bucket_id
   description = "S3 bucket for Mimir"
 }
 
 output "bucket_log" {
-  value       = module.mimir_log.s3_bucket_id
+  value       = module.buckets_logging[*].s3_bucket_id
   description = "S3 log bucket for Mimir"
 }
 
