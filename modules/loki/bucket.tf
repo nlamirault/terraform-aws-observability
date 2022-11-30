@@ -14,7 +14,7 @@
 
 module "buckets_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.5.0"
+  version = "3.6.0"
 
   for_each = local.buckets_names
 
