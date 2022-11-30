@@ -25,8 +25,8 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.loki.s3_bucket_arn,
-      "${module.loki.s3_bucket_arn}/*"
+      module.buckets[*].s3_bucket_arn,
+      "${module.buckets[*].s3_bucket_arn}/*"
     ]
   }
 
@@ -89,7 +89,7 @@ resource "aws_iam_policy" "kms" {
 
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.5.7"
+  version = "5.5.4"
 
   create_role      = true
   role_description = "Role for Loki"

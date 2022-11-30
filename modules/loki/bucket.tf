@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module "loki_log" {
+module "bucket_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "3.5.0"
 
   bucket                  = format("%s-log", local.service_name)
   block_public_acls       = true
@@ -46,11 +46,13 @@ module "loki_log" {
 }
 
 #tfsec:ignore:aws-s3-encryption-customer-key
-module "loki" {
+module "buckets" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "3.5.0"
 
-  bucket                  = local.service_name
+  for_each = local.buckets_names
+
+  bucket                  = format("%s-%s", local.service_name, each.value)
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
@@ -60,12 +62,12 @@ module "loki" {
   force_destroy = true
 
   tags = merge(
-    { "Name" = local.service_name },
+    { "Name" = format("%s-%s", local.service_name, each.value) },
     var.tags
   )
 
   logging = {
-    target_bucket = module.loki_log.s3_bucket_id
+    target_bucket = module.bucket_logging.s3_bucket_id
     target_prefix = "log/"
   }
 
