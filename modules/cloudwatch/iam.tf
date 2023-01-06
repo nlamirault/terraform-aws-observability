@@ -14,7 +14,7 @@
 
 module "irsa_agent" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.9.2"
+  version = "5.10.0"
 
   create_role      = true
   role_description = "Cloudwatch Agent"
