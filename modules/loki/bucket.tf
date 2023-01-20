@@ -18,7 +18,7 @@ module "buckets_logging" {
 
   for_each = local.buckets_names
 
-  bucket                  = format("%s-%s-logging", local.service_name, each.value)
+  bucket                  = format("%s-%s", local.service_name, each.value)
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
@@ -28,7 +28,7 @@ module "buckets_logging" {
   force_destroy = true
 
   tags = merge(
-    { "Name" = format("%s-%s-logging", local.service_name, each.value) },
+    { "Name" = format("%s-%s", local.service_name, each.value) },
     var.tags
   )
 
