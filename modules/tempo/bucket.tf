@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module "tempo_log" {
+module "buckets_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.6.0"
 
-  bucket                  = format("%s-log", local.service_name)
+  for_each = local.buckets_names
+
+  bucket                  = format("%s-%s-logging", local.service_name, each.value)
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
@@ -26,7 +28,7 @@ module "tempo_log" {
   force_destroy = true
 
   tags = merge(
-    { "Name" = format("%s-log", local.service_name) },
+    { "Name" = format("%s-%s-logging", local.service_name, each.value) },
     var.tags
   )
 
@@ -46,11 +48,13 @@ module "tempo_log" {
 }
 
 #tfsec:ignore:aws-s3-encryption-customer-key
-module "tempo" {
+module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.6.0"
 
-  bucket                  = local.service_name
+  for_each = local.buckets_names
+
+  bucket                  = format("%s-%s", local.service_name, each.value)
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
@@ -60,12 +64,12 @@ module "tempo" {
   force_destroy = true
 
   tags = merge(
-    { "Name" = local.service_name },
+    { "Name" = format("%s-%s", local.service_name, each.value) },
     var.tags
   )
 
   logging = {
-    target_bucket = module.tempo_log.s3_bucket_id
+    target_bucket = module.buckets_logging[format("%s-%s", local.service_name, each.value)].s3_bucket_id
     target_prefix = "log/"
   }
 
