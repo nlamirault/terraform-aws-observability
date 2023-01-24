@@ -60,9 +60,9 @@ tags = {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.5.4 |
-| <a name="module_tempo"></a> [tempo](#module\_tempo) | terraform-aws-modules/s3-bucket/aws | 3.5.0 |
-| <a name="module_tempo_log"></a> [tempo\_log](#module\_tempo\_log) | terraform-aws-modules/s3-bucket/aws | 3.5.0 |
+| <a name="module_buckets_data"></a> [buckets\_data](#module\_buckets\_data) | terraform-aws-modules/s3-bucket/aws | 3.6.0 |
+| <a name="module_buckets_logging"></a> [buckets\_logging](#module\_buckets\_logging) | terraform-aws-modules/s3-bucket/aws | 3.6.0 |
+| <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.10.0 |
 
 ## Resources
 
