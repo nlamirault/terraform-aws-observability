@@ -30,17 +30,21 @@ data "aws_iam_policy_document" "bucket" {
     ]
   }
 
-  # statement {
-  #   effect = "Allow"
+  dynamic "statement" {
+    for_each = var.enable_kms ? [1] : []
 
-  #   actions = [
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:GenerateDataKey*",
-  #   ]
+    content {
+      effect = "Allow"
 
-  #   resources = var.enable_kms ? [aws_kms_key.mimir[0].arn] : []
-  # }
+      actions = [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey*",
+      ]
+
+      resources = [aws_kms_key.mimir[0].arn]
+    }
+  }
 
 }
 
