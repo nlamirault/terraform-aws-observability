@@ -91,7 +91,7 @@ resource "aws_iam_policy" "kms" {
 
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.11.1"
+  version = "5.11.2"
 
   create_role      = true
   role_description = "Role for Tempo"
