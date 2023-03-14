@@ -14,7 +14,7 @@
 
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.12.0"
+  version = "5.13.0"
 
   create_role      = true
   role_description = "ADOTCollector"
