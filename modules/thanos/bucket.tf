@@ -17,11 +17,10 @@ module "thanos_log" {
   version = "3.10.1"
 
   bucket                  = format("%s-log", local.service_name)
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
 
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
+  
   acl           = "log-delivery-write"
   force_destroy = true
 
@@ -51,10 +50,9 @@ module "thanos" {
   version = "3.10.1"
 
   bucket                  = local.service_name
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
+
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
 
   acl           = "private"
   force_destroy = true
