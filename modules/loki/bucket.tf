@@ -14,7 +14,7 @@
 
 module "loki_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.12.0"
+  version = "3.13.0"
 
   bucket                  = format("%s-log", local.service_name)
   control_object_ownership = true
@@ -46,7 +46,7 @@ module "loki_log" {
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "loki" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.12.0"
+  version = "3.13.0"
 
   bucket                  = local.service_name
   control_object_ownership = true
