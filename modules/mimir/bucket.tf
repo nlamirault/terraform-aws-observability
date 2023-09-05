@@ -14,7 +14,7 @@
 
 module "mimir_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.15.0"
+  version = "3.15.1"
 
   bucket                  = format("%s-log", local.service_name)
   control_object_ownership = true
@@ -46,7 +46,7 @@ module "mimir_log" {
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "mimir" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.15.0"
+  version = "3.15.1"
 
   bucket                  = local.service_name
   control_object_ownership = true
