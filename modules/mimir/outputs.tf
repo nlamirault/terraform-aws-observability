@@ -11,14 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
 
 output "bucket" {
-  value       = module.mimir.s3_bucket_id
+  value       = module.buckets_data[*].s3_bucket_id
   description = "S3 bucket for Mimir"
 }
 
 output "bucket_log" {
-  value       = module.mimir_log.s3_bucket_id
+  value       = module.buckets_logging[*].s3_bucket_id
   description = "S3 log bucket for Mimir"
 }
 
