@@ -29,23 +29,26 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.tempo.s3_bucket_arn,
-      "${module.tempo.s3_bucket_arn}/*"
+      module.buckets_data[*].s3_bucket_arn,
+      "${module.buckets_data[*].s3_bucket_arn}/*"
     ]
   }
 
-  # statement {
-  #   effect = "Allow"
+  dynamic "statement" {
+    for_each = var.enable_kms ? [1] : []
 
-  #   actions = [
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:GenerateDataKey*",
-  #   ]
+    content {
+      effect = "Allow"
 
-  #   resources = var.enable_kms ? [aws_kms_key.tempo[0].arn] : []
-  # }
+      actions = [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey*",
+      ]
 
+      resources = [aws_kms_key.tempo[0].arn]
+    }
+  }
 }
 
 data "aws_iam_policy_document" "kms" {
