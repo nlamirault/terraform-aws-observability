@@ -15,7 +15,7 @@
 #tfsec:ignore:aws-iam-no-policy-wildcards
 module "managed_grafana" {
   source  = "terraform-aws-modules/managed-service-grafana/aws"
-  version = "1.5.1"
+  version = "2.1.0"
 
   # Workspace
   name                      = local.service_name

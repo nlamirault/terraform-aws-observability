@@ -14,13 +14,11 @@
 
 module "tempo_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "3.15.1"
 
-  bucket                  = format("%s-traces", local.service_name)
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
+  bucket                  = format("%s-log", local.service_name)
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
 
   acl           = "log-delivery-write"
   force_destroy = true
@@ -48,13 +46,11 @@ module "tempo_log" {
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "tempo" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "3.15.1"
 
   bucket                  = local.service_name
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
 
   acl           = "private"
   force_destroy = true

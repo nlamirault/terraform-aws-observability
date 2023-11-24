@@ -14,7 +14,7 @@
 
 module "buckets_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "3.15.1"
 
   for_each = local.buckets_names
 
@@ -24,7 +24,6 @@ module "buckets_logging" {
   restrict_public_buckets = true
   ignore_public_acls      = true
 
-  acl           = "log-delivery-write"
   force_destroy = true
 
   tags = merge(
@@ -50,7 +49,7 @@ module "buckets_logging" {
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "3.15.1"
 
   for_each = local.buckets_names
 
@@ -60,7 +59,6 @@ module "buckets_data" {
   restrict_public_buckets = true
   ignore_public_acls      = true
 
-  acl           = "private"
   force_destroy = true
 
   tags = merge(
