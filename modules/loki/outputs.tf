@@ -15,12 +15,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output "bucket" {
-  value       = module.loki.s3_bucket_id
+  value       = module.buckets_data[*].s3_bucket_id
   description = "S3 bucket for Loki"
 }
 
 output "bucket_log" {
-  value       = module.loki_log.s3_bucket_id
+  value       = module.buckets_logging[*].s3_bucket_id
   description = "S3 log bucket for Loki"
 }
 

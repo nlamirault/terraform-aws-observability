@@ -18,4 +18,10 @@ locals {
   service_name = format("%s-loki", var.cluster_name)
 
   role_name = "loki"
+
+  buckets_names = [
+    "admin",
+    "chunks",
+    "ruler"
+  ]
 }

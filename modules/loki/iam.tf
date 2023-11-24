@@ -27,22 +27,26 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.loki.s3_bucket_arn,
-      "${module.loki.s3_bucket_arn}/*"
+      module.buckets_data[*].s3_bucket_arn,
+      "${module.buckets_data[*].s3_bucket_arn}/*"
     ]
   }
 
-  # statement {
-  #   effect = "Allow"
+  dynamic "statement" {
+    for_each = var.enable_kms ? [1] : []
 
-  #   actions = [
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:GenerateDataKey*",
-  #   ]
+    content {
+      effect = "Allow"
 
-  #   resources = var.enable_kms ? [aws_kms_key.loki[0].arn] : []
-  # }
+      actions = [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey*",
+      ]
+
+      resources = [aws_kms_key.loki[0].arn]
+    }
+  }
 }
 
 #tfsec:ignore:AWS099
@@ -70,6 +74,7 @@ resource "aws_iam_policy" "bucket" {
   path        = "/"
   description = "Bucket permissions for Loki"
   policy      = data.aws_iam_policy_document.bucket.json
+
   tags = merge(
     { "Name" = format("%s-bucket", local.service_name) },
     var.tags
@@ -83,6 +88,7 @@ resource "aws_iam_policy" "kms" {
   path        = "/"
   description = "KMS permissions for Loki"
   policy      = data.aws_iam_policy_document.kms[0].json
+
   tags = merge(
     { "Name" = format("%s-kms", local.service_name) },
     var.tags
@@ -104,6 +110,7 @@ module "irsa" {
     aws_iam_policy.bucket.arn,
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags
