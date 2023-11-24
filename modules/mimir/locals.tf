@@ -19,6 +19,7 @@ locals {
 
   buckets_names = [
     "admin",
+    "alert",
     "ruler",
     "tsdb"
   ]
