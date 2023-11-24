@@ -11,12 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
 
 resource "aws_kms_key" "mimir" {
   count                   = var.enable_kms ? 1 : 0
   description             = "KMS for Mimir"
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = true
+
   tags = merge(
     { "Name" = local.service_name },
     var.tags

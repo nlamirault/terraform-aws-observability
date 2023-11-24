@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
 
 config {
   module = false
@@ -44,6 +46,6 @@ rule "terraform_standard_module_structure" { enabled = true }
 
 plugin "aws" {
     enabled = true
-    version = "0.21.1"
+    version = "0.28.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }

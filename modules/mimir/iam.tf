@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
 
 data "aws_iam_policy_document" "bucket" {
   statement {
@@ -25,22 +27,26 @@ data "aws_iam_policy_document" "bucket" {
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = [
-      module.mimir.s3_bucket_arn,
-      "${module.mimir.s3_bucket_arn}/*"
+      module.buckets_data[*].s3_bucket_arn,
+      "${module.buckets_data[*].s3_bucket_arn}/*"
     ]
   }
 
-  # statement {
-  #   effect = "Allow"
+  dynamic "statement" {
+    for_each = var.enable_kms ? [1] : []
 
-  #   actions = [
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:GenerateDataKey*",
-  #   ]
+    content {
+      effect = "Allow"
 
-  #   resources = var.enable_kms ? [aws_kms_key.mimir[0].arn] : []
-  # }
+      actions = [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey*",
+      ]
+
+      resources = [aws_kms_key.mimir[0].arn]
+    }
+  }
 
 }
 
@@ -89,7 +95,7 @@ resource "aws_iam_policy" "kms" {
 
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.10.0"
+  version = "5.32.0"
 
   create_role      = true
   role_description = "Role for Tempo"
