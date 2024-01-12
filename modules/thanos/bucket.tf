@@ -16,7 +16,7 @@
 
 module "thanos_log" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.15.1"
+  version = "3.15.2"
 
   bucket                  = format("%s-log", local.service_name)
 
@@ -49,7 +49,7 @@ module "thanos_log" {
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "thanos" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.15.1"
+  version = "3.15.2"
 
   bucket                  = local.service_name
 
