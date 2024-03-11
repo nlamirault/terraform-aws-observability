@@ -16,22 +16,22 @@
 
 # Labels for action/labeler
 
-area/kubernetes:
-  - kubernetes/*
-  - kubernetes/**/*
-
-area/gcp:
-  - iac/gcp/*
-  - iac/gcp/**/*
+area/terraform:
+  - adot/*.tf
+  - amg/*.tf
+  - amp/*.tf
+  - cloudwatch/*.tf
+  - grafana/*.tf
+  - loki/*.tf
+  - mimir/*.tf
+  - mimir/*.tf
+  - prometheus/*.tf
+  - tempo/*.tf
 
 area/aws:
   - iac/aws/*
   - iac/aws/**/*
 
-area/azure:
-  - iac/azure/*
-  - iac/azure/**/*
-
 kind/documentation:
-  - docs/*
-  - docs/**/*
+  - README.md
+  - "**/*.md"
