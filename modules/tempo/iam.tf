@@ -28,10 +28,10 @@ data "aws_iam_policy_document" "bucket" {
     ]
 
     #tfsec:ignore:aws-iam-no-policy-wildcards
-    resources = [
-      module.buckets_data[*].s3_bucket_arn,
-      "${module.buckets_data[*].s3_bucket_arn}/*"
-    ]
+    resources = concat(
+      [for b in toset(local.buckets_names) : module.buckets_data[b].s3_bucket_arn],
+      [for b in toset(local.buckets_names) : format("%s/*", module.buckets_data[b].s3_bucket_arn)]
+    )
   }
 
   dynamic "statement" {
