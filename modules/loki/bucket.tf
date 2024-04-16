@@ -16,7 +16,7 @@
 
 module "buckets_logging" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "4.1.1"
+  version = "4.1.2"
 
   for_each = local.buckets_names
 
@@ -51,7 +51,7 @@ module "buckets_logging" {
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "4.1.1"
+  version = "4.1.2"
 
   for_each = local.buckets_names
 
