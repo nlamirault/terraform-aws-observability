@@ -18,6 +18,8 @@ module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.44.0"
 
+  for_each = var.enable_irsa ? [1] : []
+
   create_role      = true
   role_description = "ADOTCollector"
   role_name        = local.role_name
@@ -28,6 +30,23 @@ module "irsa" {
     data.aws_iam_policy.xray_write_access.arn
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+
+  tags = merge(
+    { "Name" = local.role_name },
+    var.tags
+  )
+}
+
+module "pod_identity" {
+  source  = "terraform-aws-modules/eks-pod-identity/aws"
+  version = "1.4.0"
+
+  for_each = var.enable_pod_identity ? [1] : []
+
+  name = local.role_name
+
+  attach_amazon_managed_service_prometheus_policy  = true
+  amazon_managed_service_prometheus_workspace_arns = ["arn:aws:prometheus:*:*:workspace/foo"]
 
   tags = merge(
     { "Name" = local.role_name },
