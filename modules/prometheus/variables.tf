@@ -44,6 +44,16 @@ variable "bucket_name" {
   description = "Name of the Thanos bucket"
 }
 
+variable "enable_irsa" {
+  type        = bool
+  description = "Enable IRSA resources"
+}
+
+variable "enable_pod_identity" {
+  type        = bool
+  description = "Enable EKS Pod Identity resources"
+}
+
 #############################################################################
 # KMS
 
