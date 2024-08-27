@@ -28,3 +28,13 @@ output "role_arn" {
   value       = module.irsa.iam_role_arn
   description = "Amazon Resource Name for Loki"
 }
+
+output "irsa_role_arn" {
+  value       = [for irsa in module.irsa : irsa.iam_role_arn]
+  description = "Amazon Resource Name for Loki"
+}
+
+output "pod_identity_role_arn" {
+  value       = [for pod_id in module.pod_identity : pod_id.iam_role_arn]
+  description = "Amazon Resource Name for Loki"
+}
