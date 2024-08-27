@@ -143,7 +143,6 @@ module "pod_identity" {
     }
   }
 
-
   tags = merge(
     { "Name" = local.role_name },
     var.tags

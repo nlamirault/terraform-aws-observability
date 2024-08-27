@@ -24,11 +24,6 @@ output "bucket_log" {
   description = "S3 log bucket for Loki"
 }
 
-output "role_arn" {
-  value       = module.irsa.iam_role_arn
-  description = "Amazon Resource Name for Loki"
-}
-
 output "irsa_role_arn" {
   value       = [for irsa in module.irsa : irsa.iam_role_arn]
   description = "Amazon Resource Name for Loki"
