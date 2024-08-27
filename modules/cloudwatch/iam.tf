@@ -45,6 +45,14 @@ module "pod_identity" {
 
   attach_aws_cloudwatch_observability_policy = true
 
+  associations = {
+    main = {
+      cluster_name    = data.aws_eks_cluster.cluster_name
+      namespace       = var.namespace
+      service_account = var.service_account
+    }
+  }
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags
