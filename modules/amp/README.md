@@ -1,10 +1,3 @@
-# Observability / AWS Managed Service for Prometheus
-
-Terraform module which configure an AWS managed service for Prometheus instance.
-
-## Documentation
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -20,7 +13,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_amp"></a> [amp](#module\_amp) | terraform-aws-modules/managed-service-prometheus/aws | 2.2.0 |
+| <a name="module_amp"></a> [amp](#module\_amp) | terraform-aws-modules/managed-service-prometheus/aws | 3.0.0 |
 
 ## Resources
 
@@ -40,4 +33,3 @@ No resources.
 | <a name="output_amp_arn"></a> [amp\_arn](#output\_amp\_arn) | Amazon Resource Name of the workspace |
 | <a name="output_amp_endpoint"></a> [amp\_endpoint](#output\_amp\_endpoint) | Prometheus endpoint available for this workspace |
 | <a name="output_amp_id"></a> [amp\_id](#output\_amp\_id) | Identifier of the workspace |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
