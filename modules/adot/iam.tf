@@ -45,8 +45,20 @@ module "pod_identity" {
 
   name = local.role_name
 
-  attach_amazon_managed_service_prometheus_policy  = true
-  amazon_managed_service_prometheus_workspace_arns = ["arn:aws:prometheus:*:*:workspace/foo"]
+  # attach_custom_policy = true
+  additional_policy_arns = {
+    CloudWatchAgentServerPolicy       = data.aws_iam_policy.cloudwatch_agent_server.arn,
+    AmazonPrometheusRemoteWriteAccess = data.aws_iam_policy.amp_remote_write_access.arn,
+    AWSXrayWriteOnlyAccess            = data.aws_iam_policy.xray_write_access.arn
+  }
+
+  associations = {
+    main = {
+      cluster_name    = data.aws_eks_cluster.cluster_name
+      namespace       = var.namespace
+      service_account = var.service_account
+    }
+  }
 
   tags = merge(
     { "Name" = local.role_name },
