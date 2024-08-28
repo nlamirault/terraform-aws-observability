@@ -98,7 +98,7 @@ module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.44.0"
 
-  for_each = var.enable_irsa ? [1] : []
+  for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
   create_role      = true
   role_description = "Role for Tempo"
@@ -121,7 +121,7 @@ module "pod_identity" {
   source  = "terraform-aws-modules/eks-pod-identity/aws"
   version = "1.4.0"
 
-  for_each = var.enable_pod_identity ? [1] : []
+  for_each = var.enable_pod_identity ? toset(["1"]) : toset([])
 
   name = local.role_name
 
@@ -135,7 +135,7 @@ module "pod_identity" {
 
   associations = {
     main = {
-      cluster_name    = data.aws_eks_cluster.cluster_name
+      cluster_name    = data.aws_eks_cluster.this.id
       namespace       = var.namespace
       service_account = var.service_account
     }
