@@ -15,13 +15,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output "bucket" {
-  value       = module.buckets_data[*].s3_bucket_id
+  value       = [for b in module.buckets_data : b.s3_bucket_id]
   description = "S3 bucket for Loki"
-}
-
-output "bucket_log" {
-  value       = module.buckets_logging[*].s3_bucket_id
-  description = "S3 log bucket for Loki"
 }
 
 output "irsa_role_arn" {
