@@ -40,6 +40,16 @@ variable "tags" {
   }
 }
 
+variable "enable_irsa" {
+  type        = bool
+  description = "Enable IRSA resources"
+}
+
+variable "enable_pod_identity" {
+  type        = bool
+  description = "Enable EKS Pod Identity resources"
+}
+
 #############################################################################
 # KMS
 
@@ -47,7 +57,6 @@ variable "enable_kms" {
   type        = bool
   description = "Enable custom KMS key"
 }
-
 
 variable "deletion_window_in_days" {
   type        = number

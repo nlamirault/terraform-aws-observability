@@ -31,23 +31,20 @@ variable "service_account" {
   description = "The Kubernetes service account"
 }
 
+variable "enable_irsa" {
+  type        = bool
+  description = "Enable IRSA resources"
+}
+
+variable "enable_pod_identity" {
+  type        = bool
+  description = "Enable EKS Pod Identity resources"
+}
+
 variable "tags" {
   type        = map(string)
   description = "Tags for Loki"
   default = {
     "Made-By" = "Terraform"
   }
-}
-
-variable "bucket_name" {
-  type        = string
-  description = "Name of the Thanos bucket"
-}
-
-#############################################################################
-# KMS
-
-variable "enable_kms" {
-  type        = bool
-  description = "Enable custom KMS key"
 }

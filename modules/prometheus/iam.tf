@@ -14,97 +14,49 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-data "aws_iam_policy_document" "bucket" {
-  statement {
-    actions = [
-      "s3:ListBucket",
-      "s3:GetObject",
-      "s3:DeleteObject",
-      "s3:PutObject",
-    ]
-
-    #tfsec:ignore:aws-iam-no-policy-wildcards
-    resources = [
-      data.aws_s3_bucket.thanos.arn,
-      "${data.aws_s3_bucket.thanos.arn}/*"
-    ]
-  }
-
-  # statement {
-  #   effect = "Allow"
-
-  #   actions = [
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:GenerateDataKey*",
-  #   ]
-
-  #   resources = var.enable_kms ? [data.aws_kms_key.thanos[0].arn] : []
-  # }
-}
-
-data "aws_iam_policy_document" "kms" {
-  count = var.enable_kms ? 1 : 0
-
-  statement {
-    effect = "Allow"
-
-    #tfsec:ignore:aws-iam-no-policy-wildcards
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:GenerateDataKey*",
-    ]
-
-    resources = [
-      data.aws_kms_key.thanos[0].arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "bucket" {
-  name        = format("%s-bucket", local.service_name)
-  path        = "/"
-  description = "Bucket permissions for Prometheus"
-  policy      = data.aws_iam_policy_document.bucket.json
-  tags = merge(
-    { "Name" = format("%s-bucket", local.service_name) },
-    var.tags
-  )
-}
-
-resource "aws_iam_policy" "kms" {
-  count = var.enable_kms ? 1 : 0
-
-  name        = format("%s-kms", local.service_name)
-  path        = "/"
-  description = "KMS permissions for Prometheus"
-  policy      = data.aws_iam_policy_document.kms[0].json
-  tags = merge(
-    { "Name" = format("%s-kms", local.service_name) },
-    var.tags
-  )
-}
-
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.44.0"
+
+  for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
   create_role      = true
   role_description = "Prometheus Role"
   role_name        = local.role_name
   provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-  role_policy_arns = var.enable_kms ? [
-    aws_iam_policy.bucket.arn,
-    aws_iam_policy.kms[0].arn,
-    data.aws_iam_policy.amp_remote_write_access.arn,
-    data.aws_iam_policy.ec2_ro_access.arn
-    ] : [
-    aws_iam_policy.bucket.arn,
+  role_policy_arns = [
     data.aws_iam_policy.amp_remote_write_access.arn,
     data.aws_iam_policy.ec2_ro_access.arn
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  tags = merge(
+    { "Name" = local.role_name },
+    var.tags
+  )
+}
+
+module "pod_identity" {
+  source  = "terraform-aws-modules/eks-pod-identity/aws"
+  version = "1.4.0"
+
+  for_each = var.enable_pod_identity ? toset(["1"]) : toset([])
+
+  name = local.role_name
+
+  # attach_custom_policy = true
+  additional_policy_arns = {
+    AmazonPrometheusRemoteWriteAccess : data.aws_iam_policy.amp_remote_write_access.arn,
+    AmazonEC2ReadOnlyAccess : data.aws_iam_policy.ec2_ro_access.arn
+  }
+
+  associations = {
+    main = {
+      cluster_name    = data.aws_eks_cluster.this.id
+      namespace       = var.namespace
+      service_account = var.service_account
+    }
+  }
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags

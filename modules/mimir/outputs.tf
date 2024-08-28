@@ -15,16 +15,16 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output "bucket" {
-  value       = module.buckets_data[*].s3_bucket_id
+  value       = [for b in module.buckets_data : b.s3_bucket_id]
   description = "S3 bucket for Mimir"
 }
 
-output "bucket_log" {
-  value       = module.buckets_logging[*].s3_bucket_id
-  description = "S3 log bucket for Mimir"
+output "irsa_role_arn" {
+  value       = [for irsa in module.irsa : irsa.iam_role_arn]
+  description = "Amazon Resource Name for Mimir"
 }
 
-output "role_arn" {
-  value       = module.irsa.iam_role_arn
+output "pod_identity_role_arn" {
+  value       = [for pod_id in module.pod_identity : pod_id.iam_role_arn]
   description = "Amazon Resource Name for Mimir"
 }

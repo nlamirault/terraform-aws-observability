@@ -14,15 +14,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-data "aws_s3_bucket" "thanos" {
-  bucket = var.bucket_name
-}
-
-data "aws_kms_key" "thanos" {
-  count  = var.enable_kms ? 1 : 0
-  key_id = "alias/thanos"
-}
-
 data "aws_eks_cluster" "this" {
   name = var.cluster_name
 }

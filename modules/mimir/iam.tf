@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "bucket" {
   }
 
   dynamic "statement" {
-    for_each = var.enable_kms ? [1] : []
+    for_each = var.enable_kms ? toset([1]) : toset([])
 
     content {
       effect = "Allow"
@@ -97,6 +97,8 @@ module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.44.0"
 
+  for_each = var.enable_irsa ? toset(["1"]) : toset([])
+
   create_role      = true
   role_description = "Role for Tempo"
   role_name        = local.role_name
@@ -110,6 +112,37 @@ module "irsa" {
     data.aws_iam_policy.amp_remote_write_access.arn
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  tags = merge(
+    { "Name" = local.role_name },
+    var.tags
+  )
+}
+
+module "pod_identity" {
+  source  = "terraform-aws-modules/eks-pod-identity/aws"
+  version = "1.4.0"
+
+  for_each = var.enable_pod_identity ? toset(["1"]) : toset([])
+
+  name = local.role_name
+
+  additional_policy_arns = var.enable_kms ? {
+    MimirS3Access : aws_iam_policy.bucket.arn,
+    MimirKMSAccess : aws_iam_policy.kms[0].arn,
+    AmazonPrometheusRemoteWriteAccess : data.aws_iam_policy.amp_remote_write_access.arn
+    } : {
+    MimirS3Access : aws_iam_policy.bucket.arn,
+    AmazonPrometheusRemoteWriteAccess : data.aws_iam_policy.amp_remote_write_access.arn
+  }
+
+  associations = {
+    main = {
+      cluster_name    = data.aws_eks_cluster.this.id
+      namespace       = var.namespace
+      service_account = var.service_account
+    }
+  }
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags

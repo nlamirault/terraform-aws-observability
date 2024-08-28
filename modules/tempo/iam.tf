@@ -98,6 +98,8 @@ module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.44.0"
 
+  for_each = var.enable_irsa ? toset(["1"]) : toset([])
+
   create_role      = true
   role_description = "Role for Tempo"
   role_name        = local.role_name
@@ -109,6 +111,36 @@ module "irsa" {
     aws_iam_policy.bucket.arn,
   ]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  tags = merge(
+    { "Name" = local.role_name },
+    var.tags
+  )
+}
+
+module "pod_identity" {
+  source  = "terraform-aws-modules/eks-pod-identity/aws"
+  version = "1.4.0"
+
+  for_each = var.enable_pod_identity ? toset(["1"]) : toset([])
+
+  name = local.role_name
+
+  # attach_custom_policy = true
+  additional_policy_arns = var.enable_kms ? {
+    TempoS3Access : aws_iam_policy.bucket.arn,
+    TempoKMSAccess : aws_iam_policy.kms[0].arn,
+    } : {
+    TempoS3Access : aws_iam_policy.bucket.arn,
+  }
+
+  associations = {
+    main = {
+      cluster_name    = data.aws_eks_cluster.this.id
+      namespace       = var.namespace
+      service_account = var.service_account
+    }
+  }
+
   tags = merge(
     { "Name" = local.role_name },
     var.tags
