@@ -16,7 +16,6 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_buckets_data"></a> [buckets\_data](#module\_buckets\_data) | terraform-aws-modules/s3-bucket/aws | 4.1.1 |
-| <a name="module_buckets_logging"></a> [buckets\_logging](#module\_buckets\_logging) | terraform-aws-modules/s3-bucket/aws | 4.1.1 |
 | <a name="module_irsa"></a> [irsa](#module\_irsa) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.44.0 |
 | <a name="module_pod_identity"></a> [pod\_identity](#module\_pod\_identity) | terraform-aws-modules/eks-pod-identity/aws | 1.4.0 |
 
@@ -51,6 +50,5 @@
 | Name | Description |
 |------|-------------|
 | <a name="output_bucket"></a> [bucket](#output\_bucket) | S3 bucket for Mimir |
-| <a name="output_bucket_log"></a> [bucket\_log](#output\_bucket\_log) | S3 log bucket for Mimir |
 | <a name="output_irsa_role_arn"></a> [irsa\_role\_arn](#output\_irsa\_role\_arn) | Amazon Resource Name for Mimir |
 | <a name="output_pod_identity_role_arn"></a> [pod\_identity\_role\_arn](#output\_pod\_identity\_role\_arn) | Amazon Resource Name for Mimir |
