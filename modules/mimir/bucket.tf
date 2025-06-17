@@ -17,7 +17,7 @@
 #tfsec:ignore:aws-s3-encryption-customer-key
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "4.2.2"
+  version = "4.11.0"
 
   for_each = toset(local.buckets_names)
 
