@@ -4,22 +4,44 @@
 ---
 # Labels for action/labeler
 
-area/terraform:
-  - adot/*.tf
-  - amg/*.tf
-  - amp/*.tf
-  - cloudwatch/*.tf
-  - grafana/*.tf
-  - loki/*.tf
-  - mimir/*.tf
-  - mimir/*.tf
-  - prometheus/*.tf
-  - tempo/*.tf
+######################################
+# Label area/xxx
 
-area/aws:
-  - iac/aws/*
-  - iac/aws/**/*
+area/github:
+- changed-files:
+  - any-glob-to-any-file: .github/**
+
+area/kubernetes:
+- changed-files:
+  - any-glob-to-any-file: kubernetes/**
+
+area/terraform:
+- changed-files:
+  - any-glob-to-any-file: adot/*.tf
+- changed-files:
+  - any-glob-to-any-file: amg/*.tf
+- changed-files:
+  - any-glob-to-any-file: amp/*.tf
+- changed-files:
+  - any-glob-to-any-file: cloudwatch/*.tf
+- changed-files:
+  - any-glob-to-any-file: grafana/*.tf
+- changed-files:
+  - any-glob-to-any-file: loki/*.tf
+- changed-files:
+  - any-glob-to-any-file: mimir/*.tf
+- changed-files:
+  - any-glob-to-any-file: mimir/*.tf
+- changed-files:
+  - any-glob-to-any-file: prometheus/*.tf
+- changed-files:
+  - any-glob-to-any-file: tempo/*.tf
+
+######################################
+# Label kind/xxx
 
 kind/documentation:
-  - README.md
-  - "**/*.md"
+- changed-files:
+  - any-glob-to-any-file: README.md
+- changed-files:
+  - any-glob-to-any-file: "**/*.md"
