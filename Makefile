@@ -56,9 +56,21 @@ check-%:
 
 ##@ Development
 
+.PHONY: clean
+clean:
+	find . -name ".terraform" | xargs rm -fr
+	find . -name ".terraform.lock.hcl" | xargs rm -fr
+
 .PHONY: check
 check: check-terraform check-tflint check-terraform-docs check-pre-commit ## Check requirements
 
 .PHONY: validate
 validate: ## Execute git-hooks
 	@pre-commit run -a
+
+.PHONY: build
+build: guard-MODULE
+	cd modules/$(MODULE) \
+		&& terraform init \
+		&& terraform fmt \
+		&& terraform validate
