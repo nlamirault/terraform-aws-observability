@@ -1,21 +1,30 @@
 ---
-name: Continuous Integration
+name: Terraform / Build
 
 on:
   pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - master
+    paths:
+      - modules/**
 
 permissions:
   contents: read
 
 jobs:
-  terraform-validation:
+  validation:
     name: Terraform Validation
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module:
+          - adot
+          - amg
+          - amp
+          - cloudwatch
+          - grafana
+          - loki
+          - mimir
+          - prometheus
+          - tempo
     steps:
       - name: Checkout
         id: checkout
@@ -29,9 +38,12 @@ jobs:
 
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: ${{ matrix.module }}
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ${{ matrix.module }}
 
       - name: Terraform Validate
         run: terraform validate -no-color
+        working-directory: ${{ matrix.module }}
