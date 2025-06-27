@@ -11,10 +11,6 @@ area/github:
 - changed-files:
   - any-glob-to-any-file: .github/**
 
-area/kubernetes:
-- changed-files:
-  - any-glob-to-any-file: kubernetes/**
-
 area/terraform:
 - changed-files:
   - any-glob-to-any-file: adot/*.tf
