@@ -1,37 +1,47 @@
-# Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# SPDX-FileCopyrightText: Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
+---
 # Labels for action/labeler
 
-area/terraform:
-  - adot/*.tf
-  - amg/*.tf
-  - amp/*.tf
-  - cloudwatch/*.tf
-  - grafana/*.tf
-  - loki/*.tf
-  - mimir/*.tf
-  - mimir/*.tf
-  - prometheus/*.tf
-  - tempo/*.tf
+######################################
+# Label area/xxx
 
-area/aws:
-  - iac/aws/*
-  - iac/aws/**/*
+area/github:
+- changed-files:
+  - any-glob-to-any-file: .github/**
+
+area/kubernetes:
+- changed-files:
+  - any-glob-to-any-file: kubernetes/**
+
+area/terraform:
+- changed-files:
+  - any-glob-to-any-file: adot/*.tf
+- changed-files:
+  - any-glob-to-any-file: amg/*.tf
+- changed-files:
+  - any-glob-to-any-file: amp/*.tf
+- changed-files:
+  - any-glob-to-any-file: cloudwatch/*.tf
+- changed-files:
+  - any-glob-to-any-file: grafana/*.tf
+- changed-files:
+  - any-glob-to-any-file: loki/*.tf
+- changed-files:
+  - any-glob-to-any-file: mimir/*.tf
+- changed-files:
+  - any-glob-to-any-file: mimir/*.tf
+- changed-files:
+  - any-glob-to-any-file: prometheus/*.tf
+- changed-files:
+  - any-glob-to-any-file: tempo/*.tf
+
+######################################
+# Label kind/xxx
 
 kind/documentation:
-  - README.md
-  - "**/*.md"
+- changed-files:
+  - any-glob-to-any-file: README.md
+- changed-files:
+  - any-glob-to-any-file: "**/*.md"
