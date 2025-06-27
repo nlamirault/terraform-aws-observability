@@ -3,7 +3,7 @@
 
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.48.0"
+  version = "5.58.0"
 
   for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
