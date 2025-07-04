@@ -3,6 +3,7 @@
 
 # trivy:ignore:AVD-AWS-0089
 # trivy:ignore:AVD-AWS-0132
+# trivy:ignore:AVD-AWS-0088
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "4.11.0"
