@@ -24,13 +24,12 @@ jobs:
       - name: Run Trivy
         uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # 0.32.0
         with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          hide-progress: true
+          scan-type: 'config'
+          hide-progress: false
           format: 'sarif'
-          exit-code: '0'
-          trivy-config: trivy.yaml
           output: 'trivy-results.sarif'
+          exit-code: '1'
+          # severity: 'CRITICAL,HIGH'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@181d5eefc20863364f96762470ba6f862bdef56b # v3.29.2
