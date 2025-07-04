@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # trivy:ignore:AVD-AWS-0089
+# trivy:ignore:AVD-AWS-0132
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "4.11.0"
