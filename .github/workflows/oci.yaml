@@ -59,6 +59,12 @@ jobs:
           oras version
           oras push ${{ env.REGISTRY }}/${{ github.repository_owner }}/modules/${{ steps.release-details.outputs.release_name }}:${{ steps.release-details.outputs.release_version }} \
             --artifact-type application/vnd.terraform.module \
+            --annotation "org.opencontainers.image.title=Terraform AWS Observability Module" \
+            --annotation "org.opencontainers.image.description=Provision AWS observability stack (Prometheus, Grafana, X-Ray, CloudWatch) with Terraform" \
+            --annotation "org.opencontainers.image.authors=Nicolas Lamirault <nicolas.lamirault@gmail.com>" \
+            --annotation "org.opencontainers.image.version=${{ steps.release-details.outputs.release_version }}" \
+            --annotation "org.opencontainers.image.licenses=Apache-2.0" \
+            --annotation "org.opencontainers.image.source=https://github.com/nlamirault/terraform-aws-observability" \
             modules/
 
       - name: Setup Crane
