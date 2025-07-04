@@ -26,14 +26,14 @@ All _artifacts_ provided by this repository meet [SLSA L3](https://slsa.dev/spec
 ### Verify SLSA provenance using the Github CLI
 
 ```shell
-$ gh attestation verify oci://ghcr.io/nlamirault/modules/terraform-aws-observability:v0.0.4 --repo nlamirault/terraform-aws-observability
-Loaded digest sha256:2b07c6f0c4e6202ca0ed1079570216bb91d4af13e67a911da7d40badb01e137c for oci://ghcr.io/nlamirault/modules/terraform-aws-observability:v0.0.4
+gh attestation verify oci://ghcr.io/nlamirault/modules/terraform-aws-observability:v5.2.0 --repo nlamirault/terraform-aws-observability
+Loaded digest sha256:9b3328752958e082cfb0d28bb6c1e466d716f56e8850391a935349013dd90257 for oci://ghcr.io/nlamirault/modules/terraform-aws-observability:v5.2.0
 Loaded 1 attestation from GitHub API
 ✓ Verification succeeded!
 
-sha256:2b07c6f0c4e6202ca0ed1079570216bb91d4af13e67a911da7d40badb01e137c was attested by:
+sha256:9b3328752958e082cfb0d28bb6c1e466d716f56e8850391a935349013dd90257 was attested by:
 REPO                                    PREDICATE_TYPE                  WORKFLOW
-nlamirault/terraform-aws-observability  https://slsa.dev/provenance/v1  .github/workflows/oci.yaml@refs/tags/v0.0.4
+nlamirault/terraform-aws-observability  https://slsa.dev/provenance/v1  .github/workflows/oci.yaml@refs/tags/v5.2.0
 ```
 
 ### Verify SLSA provenance using Cosign
@@ -43,9 +43,9 @@ $ cosign verify-attestation \
   --type slsaprovenance \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
   --certificate-identity-regexp '^https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$' \
-  ghcr.io/nlamirault/modules/terraform-aws-observability:v0.0.4@sha256:2b07c6f0c4e6202ca0ed1079570216bb91d4af13e67a911da7d40badb01e137c
+  ghcr.io/nlamirault/modules/terraform-aws-observability:v5.2.0@sha256:9b3328752958e082cfb0d28bb6c1e466d716f56e8850391a935349013dd90257
 
-Verification for ghcr.io/nlamirault/modules/terraform-aws-observability:v0.0.4@sha256:2b07c6f0c4e6202ca0ed1079570216bb91d4af13e67a911da7d40badb01e137c --
+Verification for ghcr.io/nlamirault/modules/terraform-aws-observability:v5.2.0@sha256:9b3328752958e082cfb0d28bb6c1e466d716f56e8850391a935349013dd90257 --
 The following checks were performed on each of these signatures:
   - The cosign claims were validated
   - Existence of the claims in the transparency log was verified offline
@@ -53,9 +53,10 @@ The following checks were performed on each of these signatures:
 Certificate subject: https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v2.1.0
 Certificate issuer URL: https://token.actions.githubusercontent.com
 GitHub Workflow Trigger: push
-GitHub Workflow SHA: 7b50e05f75f7699203daaf1975886ee7df7d4dff
+GitHub Workflow SHA: 62f76910908f3ada58542638eb201a74c5778e73
 GitHub Workflow Name: Terraform / OCI
 GitHub Workflow Repository: nlamirault/terraform-aws-observability
+GitHub Workflow Ref: refs/tags/v5.2.0
 GitHub Workflow Ref: refs/tags/v0.0.4
 ...
 ```
