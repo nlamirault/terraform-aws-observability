@@ -28,7 +28,13 @@ module "buckets_data" {
         sse_algorithm     = "aws:kms"
       }
     }
-  } : {}
+    } : {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 
   tags = merge(
     { "Name" = format("%s-%s", local.service_name, each.value) },
