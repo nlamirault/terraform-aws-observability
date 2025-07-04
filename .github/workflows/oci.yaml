@@ -25,12 +25,15 @@ jobs:
       digest: ${{ steps.get-digest.outputs.digest }}
       image: ${{ env.REGISTRY }}/${{ github.repository_owner }}/modules/${{ steps.release-details.outputs.release_name }}
 
-    env:
-      REPO_NAME: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
-
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Extract repository name
+        run: |
+          REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
+          echo "Repository name: $REPO_NAME"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
       - name: Extract Terraform module name and version
         id: release-details
@@ -53,7 +56,7 @@ jobs:
       - name: Push Terraform module to GHCR
         run: |
           oras version
-          oras push ${{ env.REGISTRY }}/${{ github.repository_owner }}/modules/${{ steps.release-details.outputs.release_name }}:${{ steps.release-details.outputs.release_version }}) \
+          oras push ${{ env.REGISTRY }}/${{ github.repository_owner }}/modules/${{ steps.release-details.outputs.release_name }}:${{ steps.release-details.outputs.release_version }} \
             --artifact-type application/vnd.terraform.module \
             modules/
 
