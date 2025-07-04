@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
-#tfsec:ignore:aws-s3-encryption-customer-key
+# trivy:ignore:AVD-AWS-0089
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "4.11.0"
