@@ -88,7 +88,7 @@ jobs:
       - name: Attest
         uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ github.repository }}/modules/${{ steps.release-details.outputs.release_name }}
+          subject-name: ${{ env.REGISTRY }}/${{ github.repository_owner }}/modules/${{ steps.release-details.outputs.release_name }}
           subject-digest: ${{ steps.get-digest.outputs.digest }}
           push-to-registry: true
 
