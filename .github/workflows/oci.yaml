@@ -81,6 +81,9 @@ jobs:
           cosign verify "${artifact_digest_uri}" \
               --certificate-identity-regexp "https://github.com/${{ github.repository }}/*" \
               --certificate-oidc-issuer https://token.actions.githubusercontent.com
+          echo cosign verify "${artifact_digest_uri}" \
+              --certificate-identity-regexp "https://github.com/${{ github.repository }}/*" \
+              --certificate-oidc-issuer https://token.actions.githubusercontent.com
 
       - name: Attest
         uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
@@ -117,8 +120,8 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Install Cosign
+
         uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac # v3.9.1
 
       - name: Verify image
