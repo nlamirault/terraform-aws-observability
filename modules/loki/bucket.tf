@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
-#tfsec:ignore:aws-s3-encryption-customer-key
+# trivy:ignore:AVD-AWS-0089
 module "buckets_data" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "4.11.0"
@@ -28,7 +28,15 @@ module "buckets_data" {
         sse_algorithm     = "aws:kms"
       }
     }
-  } : {}
+    } : {
+    rule = {
+      bucket_key_enabled = true
+      bucket_key_enabled = true
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 
   tags = merge(
     { "Name" = format("%s-%s", local.service_name, each.value) },
