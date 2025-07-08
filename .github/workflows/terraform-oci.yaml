@@ -94,6 +94,19 @@ jobs:
               --certificate-identity-regexp "https://github.com/${{ github.repository }}/*" \
               --certificate-oidc-issuer https://token.actions.githubusercontent.com
 
+      - name: Generate SBOM
+        uses: anchore/sbom-action@55dc4ee22412511ee8c3142cbea40418e6cec693 # v0.17.8
+        with:
+          image: ${{ env.IMAGE_TAG }}
+          artifact-name: sbom-${{ env.IMAGE_NAME }}
+          output-file: ./sbom-${{ env.IMAGE_NAME }}.spdx.json
+
+      # - name: Attach SBOM to release
+      #   uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2
+      #   with:
+      #     tag_name: ${{ needs.release-please.outputs.tag_name }}
+      #     files: ./sbom-${{ env.IMAGE_NAME }}.spdx.json
+
       - name: Attest
         uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
         with:

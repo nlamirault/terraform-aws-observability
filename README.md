@@ -60,6 +60,17 @@ GitHub Workflow Ref: refs/tags/v6.0.0
 ...
 ```
 
+## OCI
+
+You could discover all the referrers of manifest with annotations, displayed in a tree view:
+
+```shell
+$ oras discover --format tree ghcr.io/nlamirault/modules/terraform-aws-observability:v6.0.0
+ghcr.io/nlamirault/modules/terraform-aws-observability@sha256:006e0f3fdc4071db667cef0b922de39addbb4996765fb76213cfb1b03cbabf05
+└── application/vnd.dev.sigstore.bundle.v0.3+json
+    └── sha256:b6b84f1d250eeedeb180ab2d3414ceb32da0f97120f7b088e59dfa2b134c6220
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md)
