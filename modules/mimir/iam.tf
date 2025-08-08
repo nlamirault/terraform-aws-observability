@@ -82,7 +82,7 @@ resource "aws_iam_policy" "kms" {
 
 module "irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.59.0"
+  version = "5.60.0"
 
   for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
