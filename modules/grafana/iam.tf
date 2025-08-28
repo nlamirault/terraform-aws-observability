@@ -2,29 +2,32 @@
 # SPDX-License-Identifier: Apache-2.0
 
 module "irsa" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
   version = "6.2.1"
 
   for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
-  create_role      = true
-  role_description = "Role for Grafana"
-  role_name        = local.role_name
-  provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+  name        = local.role_name
+  description = "Role for Grafana"
 
-  role_policy_arns = concat([
-    data.aws_iam_policy.cloudwatch_readonly_access.arn,
-    data.aws_iam_policy.timestream_readonly_access.arn,
-    data.aws_iam_policy.amp_query_access.arn
-  ], var.role_policy_arns)
+  oidc_providers = {
+    main = {
+      provider_arn = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+      namespace_service_accounts = [
+        ["${var.namespace}:${var.service_account}"]
+      ]
+    }
+  }
 
-  oidc_fully_qualified_subjects  = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
-  oidc_fully_qualified_audiences = ["sts.amazonaws.com"]
+  policies = merge({
+    CloudWatchAReadOnlyPolicy   = data.aws_iam_policy.cloudwatch_readonly_access.arn,
+    TimeStreamReadOnlyPolicy    = data.aws_iam_policy.timestream_readonly_access.arn,
+    AmazonPrometheusQueryPolicy = data.aws_iam_policy.amp_query_access.arn
+  }, var.role_policy_arns)
 
-  tags = merge(
-    { "Name" = local.role_name },
-    var.tags
-  )
+  tags = merge({
+    "Name" = local.role_name
+  }, var.tags)
 }
 
 module "pod_identity" {

@@ -2,24 +2,28 @@
 # SPDX-License-Identifier: Apache-2.0
 
 module "irsa" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
   version = "6.2.1"
 
   for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
-  create_role      = true
-  role_description = "Cloudwatch Agent"
-  role_name        = local.role_name
-  provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-  role_policy_arns = [
-    data.aws_iam_policy.cloudwatch_agent_server.arn
-  ]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  name        = local.role_name
+  description = "Cloudwatch Agent"
 
-  tags = merge(
-    { "Name" = local.role_name },
-    var.tags
-  )
+  oidc_providers = {
+    main = {
+      provider_arn = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+      namespace_service_accounts = [
+        ["${var.namespace}:${var.service_account}"]
+      ]
+    }
+  }
+
+  attach_cloudwatch_observability_policy = true
+
+  tags = merge({
+    "Name" = local.role_name
+  }, var.tags)
 }
 
 module "pod_identity" {

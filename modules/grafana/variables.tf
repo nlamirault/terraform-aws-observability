@@ -10,9 +10,9 @@ variable "cluster_name" {
 }
 
 variable "role_policy_arns" {
-  description = "List of ARNs of IAM policies to attach to IAM role"
-  type        = list(string)
-  default     = []
+  description = "Map of ARNs of IAM policies to attach to IAM role"
+  type        = map(string)
+  default     = {}
 }
 
 variable "namespace" {
