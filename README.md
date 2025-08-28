@@ -1,7 +1,7 @@
 # Observability components into Amazon AWS
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/10860/badge)](https://www.bestpractices.dev/en/projects/10860)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/10881/badge)](https://www.bestpractices.dev/en/projects/10881)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nlamirault/terraform-aws-observability/badge)](https://securityscorecards.dev/viewer/?uri=github.com/nlamirault/terraform-aws-observability)
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 
