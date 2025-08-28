@@ -1,61 +1,6 @@
 # SPDX-FileCopyrightText: Copyright (C) Nicolas Lamirault <nicolas.lamirault@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
-data "aws_iam_policy_document" "bucket" {
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "s3:ListBucket",
-      "s3:GetObject",
-      "s3:DeleteObject",
-      "s3:PutObject",
-    ]
-
-    #tfsec:ignore:aws-iam-no-policy-wildcards
-    resources = concat(
-      [for b in toset(local.buckets_names) : module.buckets_data[b].s3_bucket_arn],
-      [for b in toset(local.buckets_names) : format("%s/*", module.buckets_data[b].s3_bucket_arn)]
-    )
-  }
-
-  dynamic "statement" {
-    for_each = var.enable_kms ? toset(["1"]) : toset([])
-
-    content {
-      effect = "Allow"
-
-      actions = [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:GenerateDataKey*",
-      ]
-
-      resources = [aws_kms_key.loki[0].arn]
-    }
-  }
-}
-
-#tfsec:ignore:AWS099
-data "aws_iam_policy_document" "kms" {
-  count = var.enable_kms ? 1 : 0
-
-  statement {
-    effect = "Allow"
-
-    #tfsec:ignore:aws-iam-no-policy-wildcards
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:GenerateDataKey*",
-    ]
-
-    resources = [
-      aws_kms_key.loki[0].arn
-    ]
-  }
-}
-
 resource "aws_iam_policy" "bucket" {
   name        = format("%s-bucket", local.service_name)
   path        = "/"
@@ -83,27 +28,33 @@ resource "aws_iam_policy" "kms" {
 }
 
 module "irsa" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
   version = "6.2.1"
 
   for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
-  create_role      = true
-  role_description = "Role for Loki"
-  role_name        = local.role_name
-  provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-  role_policy_arns = var.enable_kms ? [
-    aws_iam_policy.bucket.arn,
-    aws_iam_policy.kms[0].arn,
-    ] : [
-    aws_iam_policy.bucket.arn,
-  ]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  name        = local.role_name
+  description = "Role for Grafana Loki"
 
-  tags = merge(
-    { "Name" = local.role_name },
-    var.tags
-  )
+  oidc_providers = {
+    main = {
+      provider_arn = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+      namespace_service_accounts = [
+        ["${var.namespace}:${var.service_account}"]
+      ]
+    }
+  }
+
+  policies = var.enable_kms ? {
+    S3BucketPolicy = aws_iam_policy.bucket.arn,
+    KMSPolicy      = aws_iam_policy.kms[0].arn,
+    } : {
+    S3BucketPolicy = aws_iam_policy.bucket.arn,
+  }
+
+  tags = merge({
+    "Name" = local.role_name
+  }, var.tags)
 }
 
 module "pod_identity" {

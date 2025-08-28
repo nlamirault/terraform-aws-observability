@@ -2,26 +2,32 @@
 # SPDX-License-Identifier: Apache-2.0
 
 module "irsa" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
   version = "6.2.1"
 
   for_each = var.enable_irsa ? toset(["1"]) : toset([])
 
-  create_role      = true
-  role_description = "ADOTCollector"
-  role_name        = local.role_name
-  provider_url     = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-  role_policy_arns = [
-    data.aws_iam_policy.cloudwatch_agent_server.arn,
-    data.aws_iam_policy.amp_remote_write_access.arn,
-    data.aws_iam_policy.xray_write_access.arn
-  ]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account}"]
+  name        = local.role_name
+  description = "ADOTCollector"
 
-  tags = merge(
-    { "Name" = local.role_name },
-    var.tags
-  )
+  oidc_providers = {
+    main = {
+      provider_arn = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+      namespace_service_accounts = [
+        ["${var.namespace}:${var.service_account}"]
+      ]
+    }
+  }
+
+  policies = {
+    CloudWatchAgentServerPolicy       = data.aws_iam_policy.cloudwatch_agent_server.arn,
+    AmazonPrometheusRemoteWriteAccess = data.aws_iam_policy.amp_remote_write_access.arn,
+    AWSXrayWriteOnlyAccess            = data.aws_iam_policy.xray_write_access.arn
+  }
+
+  tags = merge({
+    "Name" = local.role_name
+  }, var.tags)
 }
 
 module "pod_identity" {
