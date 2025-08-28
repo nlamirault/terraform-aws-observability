@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 locals {
-  service_name = format("%s-prometheus", var.cluster_name)
+  # service_name = format("%s-prometheus", var.cluster_name)
 
   role_name = "prometheus"
 }

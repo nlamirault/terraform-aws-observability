@@ -27,8 +27,6 @@ area/terraform:
 - changed-files:
   - any-glob-to-any-file: mimir/*.tf
 - changed-files:
-  - any-glob-to-any-file: mimir/*.tf
-- changed-files:
   - any-glob-to-any-file: prometheus/*.tf
 - changed-files:
   - any-glob-to-any-file: tempo/*.tf

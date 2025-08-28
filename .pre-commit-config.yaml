@@ -31,9 +31,7 @@ repos:
       - '--args=--enable-rule=terraform_required_providers'
       - '--args=--enable-rule=terraform_unused_required_providers'
       - '--args=--enable-rule=terraform_standard_module_structure'
-    - id: terraform_tfsec
-      args:
-       - '--args=--config-file __GIT_WORKING_DIR__/.tfsec.yml'
+    - id: terraform_trivy
 - repo: https://github.com/Lucas-C/pre-commit-hooks
   rev: v1.5.5
   hooks:
