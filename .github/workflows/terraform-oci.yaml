@@ -99,7 +99,7 @@ jobs:
               --certificate-oidc-issuer https://token.actions.githubusercontent.com
 
       - name: Generate SBOM
-        uses: anchore/sbom-action@8e94d75ddd33f69f691467e42275782e4bfefe84 # v0.20.9
+        uses: anchore/sbom-action@a930d0ac434e3182448fe678398ba5713717112a # v0.21.0
         with:
           image: ${{ env.IMAGE_TAG }}
           artifact-name: sbom-${{ env.IMAGE_NAME }}
